@@ -1,1 +1,2 @@
 -When putting image in the DOM, make sure it is smooth (size is the same, etc.)
+-Fix orbiting at start; earth will orbit around center of screen instead of itself since it is positioned off center

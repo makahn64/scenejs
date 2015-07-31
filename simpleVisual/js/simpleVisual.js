@@ -14,11 +14,13 @@ var scene = SceneJS.createScene({
         }],
 
         nodes: [{
-            type:"cameras/orbit",
+            type:"cameras/trackball",
             id:"camera",
-            zoom:10,
-            zoomSensitivity:1,
-            spin:0.1,
+            zoom:0,
+            zoomSensitivity:0.02,
+            input:true,
+            orbit:true,
+
 
             nodes:[{
                 type: "translate",
@@ -45,6 +47,9 @@ var scene = SceneJS.createScene({
     }]
 });
 
+startOrbit();
+
+/* Center the image and globe */
 window.setTimeout(function() {
     // Add image to personNode
     scene.getNode("personScale", function(personScale) {
@@ -86,13 +91,16 @@ window.setTimeout(function() {
     });
 }, 2000);
 
+/* Prepare to place image in earth layer */
 window.setTimeout(function() {
     scene.getNode("personNode", function(personNode) {
         personNode.destroy();
         var img = addImgToBody("img/face.jpg");
     });
+    stopOrbit();
 }, 4500);
 
+// Add person to layer in earth model
 /*scene.getNode("peopleLayer", function(peopleLayer) {
     scene.getNode("personNode", function(personNode) {
         scene.getNode("personScale", function(personScale) {
