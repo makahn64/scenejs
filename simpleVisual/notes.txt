@@ -1,1 +1,1 @@
-When refreshing, people layer does not always stay attached to earth
+-When putting image in the DOM, make sure it is smooth (size is the same, etc.)

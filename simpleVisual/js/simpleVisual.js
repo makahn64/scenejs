@@ -45,11 +45,9 @@ var scene = SceneJS.createScene({
     }]
 });
 
-/* Position the person and earth model at center */
-
 window.setTimeout(function() {
+    // Add image to personNode
     scene.getNode("personScale", function(personScale) {
-        // Add image to personNode
         // TODO: add text stuff
         personScale.addNode({
             type: "texture",
@@ -86,29 +84,21 @@ window.setTimeout(function() {
             earth.set({x:x, y:y});
         });
     });
-
-    scene.getNode("camera", function(camera) {
-        // TODO: Stop earth from rotating and spin to desired angle
-        //scene.off(camera._tick);
-    });
 }, 2000);
 
-/* Place person in earth layer */
-
 window.setTimeout(function() {
-    scene.getNode("peopleLayer", function(peopleLayer) {
-        scene.getNode("personNode", function(personNode) {
-            scene.getNode("personScale", function(personScale) {
-                personScale.set({x:-0.2, y:-0.2, z:0.2});
-            });
-            personNode.disconnect();
-            peopleLayer.addNode(personNode);
-            /*var x;
-            scene.on("tick", function() {
-                if (x < 0)
-                    x += 0.02;
-                personNode.setX(x);
-            });*/
-        });
+    scene.getNode("personNode", function(personNode) {
+        personNode.destroy();
+        var img = addImgToBody("img/face.jpg");
     });
-}, 4000);
+}, 4500);
+
+/*scene.getNode("peopleLayer", function(peopleLayer) {
+    scene.getNode("personNode", function(personNode) {
+        scene.getNode("personScale", function(personScale) {
+            personScale.set({x:-0.2, y:-0.2, z:0.2});
+        });
+        personNode.disconnect();
+        peopleLayer.addNode(personNode);
+    });
+ });*/
