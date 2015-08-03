@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SceneJS Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+  <style>
+    body {
+      background: white;
+      margin: 0;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+    }
+  </style>
+
+  <script src="js/scenejs.js"></script>
+
+</head>
+<body>
+
+<script>
+
+  // Demo of the "cameras/orbit" and "models/space/planets/earth" custom node types
+
+  // Point SceneJS to the bundled plugins
+  SceneJS.setConfigs({
+    pluginPath: "plugins"
+  });
+
+  // Create scene
+  SceneJS.createScene({
+    nodes: [
+
+      // Custom lighting to simulate the Sun
+      {
+        type: "lights",
+        lights: [
+          {
+            mode: "ambient",
+            color: {r: 0.9, g: 0.6, b: 0.6}
+          },
+          /*{
+           mode: "dir",
+           color: { r: 1.0, g: 1.0, b: 1.0 },
+           diffuse: true,
+           specular: true,
+           dir: { x: -0.5, y: -0.5, z: -0.75 },
+           space: "view"
+           }*/
+        ],
+        nodes: [
+
+          // Mouse-orbited camera,
+          // implemented by plugin at ../../../../api/latest/plugins/node/cameras/orbit.js
+          {
+            type: "cameras/orbit",
+            yaw: 340,
+            pitch: -20,
+            zoom: 7,
+            zoomSensitivity: 1.0,
+            eye: {y: 0},
+            look: {y: 0},
+
+            nodes: [
+
+              {
+                type: "models/space/planets/earth2"
+              }
+
+            ]
+          }
+        ]
+      }
+    ]
+  });
+
+</script>
+</body>
+</html>

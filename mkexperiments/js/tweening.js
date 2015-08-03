@@ -12,38 +12,50 @@ SceneJS.setConfigs({
 var torusAndSphere = [
     {
         type: "material",
-        color: {r: 0.9, g: 0.6, b: 0.9},
+        color: {r: 0.6, g: 0.6, b: 0.6},
         nodes: [
-
-            // Torus primitive,
-            // implemented by plugin at ../api/latest/plugins/node/geometry/torus.js
             {
-                type: "geometry/torus",
-                radius: 2.0,
-                tube: 0.80, //Fatness of tire
-                segmentsR: 60, //Tube smoothness
-                segmentsT: 100, //Rim of the wheel
-                arc: Math.PI * 2
-            }
-        ]
+                type: "texture",
+                src: "textures/tire.jpg",
+                applyTo: "color",  // Apply to material "color" property (default)
+                nodes: [
+
+                    // Torus primitive,
+                    // implemented by plugin at ../api/latest/plugins/node/geometry/torus.js
+                    {
+                        type: "geometry/torus",
+                        radius: 2.0,
+                        tube: 0.80, //Fatness of tire
+                        segmentsR: 60, //Tube smoothness
+                        segmentsT: 100, //Rim of the wheel
+                        arc: Math.PI * 2
+                    }
+                ]
+            }]
     },
+
     {
         type: "material",
-        color: {r: 0.0, g: 0.6, b: 0.9},
+        color: {r: 1.0, g: 1.0, b: 1.0},
         nodes: [
 
-            // Torus primitive,
-            // implemented by plugin at ../api/latest/plugins/node/geometry/torus.js
+            // Sphere primative with a texture
             {
-                type: "geometry/sphere",
-                radius: 0.5,
-                latitiudeBands: 300,
-                longitudeBands: 300
+                type: "texture",
+                src: "textures/earth2.jpg",
+                applyTo: "color",  // Apply to material "color" property (default)
+                nodes: [
+                    {
+                        type: "geometry/sphere",
+                        radius: 0.5,
+                        latitiudeBands: 300,
+                        longitudeBands: 300
+                    }
+                ]
             }
         ]
     }
 ];
-
 
 var scene = SceneJS.createScene({
     nodes: [
