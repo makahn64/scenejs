@@ -1,0 +1,19 @@
+{
+  "name": "mkexperiments",
+  "version": "0.0.0",
+  "homepage": "https://github.com/makahn64/scenejs",
+  "authors": [
+    "Mitch Kahn <mitch@appdelegates.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tweenjs": "*"
+  }
+}
