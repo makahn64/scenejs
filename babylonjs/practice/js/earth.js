@@ -32,6 +32,7 @@ var createScene = function() {
     // Define the material for the image plane
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
     imgMat.emissiveColor = new BABYLON.Color3(1, 0, 0);
+    imgMat.backFaceCulling = false;
     imgPlane.material = imgMat;
 
     // Define child sphere to hold images
@@ -40,32 +41,8 @@ var createScene = function() {
     imgSphere.material.alpha = 0;
     imgSphere.parent = earth;
 
-    scene.onPointerDown = function(event, pickInfo) {
-        if(pickInfo.hit && pickInfo.pickedMesh == imgSphere) {
-            console.log(pickInfo.pickedPoint);
-            var decalSize = new BABYLON.Vector3(.3, .3, .3);
-            var newDecal = BABYLON.Mesh.CreateDecal("decal", pickInfo.pickedMesh, pickInfo.pickedPoint, pickInfo.getNormal(true), decalSize);
-            newDecal.material = imgMat;
-            newDecal.parent = imgSphere;
-        }
-    }
-
-    /*imgSphere.material = new BABYLON.StandardMaterial("imgBg", scene);
-
-    var imgTexture = new BABYLON.DynamicTexture("imgTexture", 512, scene, true);
-    imgTexture.hasAlpha = true;
-    imgSphere.material.diffuseTexture = imgTexture;
-    imgSphere.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
-
-    drawImg("img/face.jpg", 250, 100, imgTexture);*/
-
-    // Multi-material approach
-    /*var imgMultiMat = new BABYLON.MultiMaterial("imgMultiMat", scene);
-    imgSphere.material = imgMultiMat;
-    imgSphere.subMeshes = [];
-    var verticesCount = imgSphere.getTotalVertices();
-    imgSphere.material.subMaterials.push(imgMat);
-    imgSphere.subMeshes.push(new BABYLON.SubMesh(0, 0, verticesCount, 2088, 8, imgSphere));*/
+    var decal = drawDecal(1000, imgSphere, new BABYLON.Vector3(.1, .1, .1));
+    decal.material = imgMat;
 
     return scene;
 }
