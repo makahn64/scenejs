@@ -36,16 +36,28 @@ var createScene = function() {
 
     // Define child sphere to hold images
     var imgSphere = BABYLON.Mesh.CreateSphere("imgSphere", 25, 5.1, scene);
+    imgSphere.material = new BABYLON.StandardMaterial("imgBg", scene);
+    imgSphere.material.alpha = 0;
     imgSphere.parent = earth;
 
-    imgSphere.material = new BABYLON.StandardMaterial("imgBg", scene);
+    scene.onPointerDown = function(event, pickInfo) {
+        if(pickInfo.hit && pickInfo.pickedMesh == imgSphere) {
+            console.log(pickInfo.pickedPoint);
+            var decalSize = new BABYLON.Vector3(.3, .3, .3);
+            var newDecal = BABYLON.Mesh.CreateDecal("decal", pickInfo.pickedMesh, pickInfo.pickedPoint, pickInfo.getNormal(true), decalSize);
+            newDecal.material = imgMat;
+            newDecal.parent = imgSphere;
+        }
+    }
+
+    /*imgSphere.material = new BABYLON.StandardMaterial("imgBg", scene);
 
     var imgTexture = new BABYLON.DynamicTexture("imgTexture", 512, scene, true);
     imgTexture.hasAlpha = true;
     imgSphere.material.diffuseTexture = imgTexture;
     imgSphere.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
 
-    drawImg("img/face.jpg", 250, 100, imgTexture);
+    drawImg("img/face.jpg", 250, 100, imgTexture);*/
 
     // Multi-material approach
     /*var imgMultiMat = new BABYLON.MultiMaterial("imgMultiMat", scene);
@@ -83,6 +95,6 @@ addText("Bob", "San Jose, CA");
 window.setTimeout(function() {
     rmText();
     moveEarth(new BABYLON.Vector3(0, 0, 0));
-    moveImg(new BABYLON.Vector3(0, 0, -3.5));
+    //moveImg(new BABYLON.Vector3(0, 0, -3.5));
     //switchToFollowCam();
 }, 3000);
