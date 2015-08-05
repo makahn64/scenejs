@@ -31,8 +31,9 @@ var createScene = function() {
 
     // Define the material for the image plane
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
-    imgMat.emissiveColor = new BABYLON.Color3(1, 0, 0);
+    imgMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     imgMat.backFaceCulling = false;
+    imgMat.diffuseTexture = new BABYLON.Texture("img/face.jpg", scene);
     imgPlane.material = imgMat;
 
     // Define child sphere to hold images
@@ -41,17 +42,19 @@ var createScene = function() {
     imgSphere.material.alpha = 0;
     imgSphere.parent = earth;
 
-    var decal = drawDecal(1000, imgSphere, new BABYLON.Vector3(.1, .1, .1));
+    var decal = drawDecal(1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
     decal.material = imgMat;
+    var decal2 = drawDecal(1000, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+    decal2.material = imgMat;
 
     return scene;
-}
+};
 
 var scene = createScene();
 
 // Make earth rotate
 var alpha = 0;
-var rotate = true;
+var rotate = false;
 var earth = scene.getMeshByName("Earth");
 scene.beforeRender = function() {
     if(rotate) {
@@ -60,6 +63,19 @@ scene.beforeRender = function() {
     }
 };
 
+addText("Bob", "San Jose, CA");
+window.setTimeout(function() {
+    var imgSphere = scene.getMeshByName("imgSphere");
+    var imgMat = scene.getMaterialByName("imgMat");
+
+    rmText();
+    moveEarth(new BABYLON.Vector3(0, 0, 0));
+    moveImg(new BABYLON.Vector3(0, 0, -3.5));
+    //zoomIn(new BABYLON.Vector3(0, 0, -5.2));
+    console.log("in settimeout");
+    //switchToFollowCam();
+}, 3000);
+
 engine.runRenderLoop(function() {
     scene.render();
 });
@@ -67,11 +83,3 @@ engine.runRenderLoop(function() {
 window.addEventListener("resize", function() {
     engine.resize();
 });
-
-addText("Bob", "San Jose, CA");
-window.setTimeout(function() {
-    rmText();
-    moveEarth(new BABYLON.Vector3(0, 0, 0));
-    //moveImg(new BABYLON.Vector3(0, 0, -3.5));
-    //switchToFollowCam();
-}, 3000);

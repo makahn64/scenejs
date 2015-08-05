@@ -1,7 +1,7 @@
 /**
  * Draw decal on a source mesh at a specific index of the source mesh. Adapted from BabylonJS CreateDecal method.
  *
- * @param idx {Number} index of earth vertex to insert at
+ * @param idx {Number} index of 3D earth vertex to insert at
  * @param sourceMesh {BABYLON.Mesh} mesh to draw decal on
  * @param size {BABYLON.Vector3} size of decal
  */

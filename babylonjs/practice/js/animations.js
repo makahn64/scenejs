@@ -43,3 +43,24 @@ function moveImg(destVector) {
     imgPlane.animations.push(animation);
     scene.beginAnimation(imgPlane, 0, 90);
 }
+
+function zoomIn(destVector) {
+    var camera = scene.getCameraByName("mainCamera");
+
+    var animation = new BABYLON.Animation("moveImg", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: camera.position});
+    keys.push({frame: 90, value: destVector});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    console.log("here");
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 90);
+}
