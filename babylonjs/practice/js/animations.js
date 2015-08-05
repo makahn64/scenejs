@@ -1,7 +1,7 @@
 /** Creates an animation to move the earth and executes it.
  * @param destVector {BABYLON.Vector3} destination vector
  */
-function moveEarth(destVector) {
+function moveEarth(destVector, scene) {
     var earth = scene.getMeshByName("Earth");
 
     var animation = new BABYLON.Animation("moveEarth", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
@@ -24,7 +24,7 @@ function moveEarth(destVector) {
 /** Creates an animation to move the image plane and executes it.
  * @param destVector {BABYLON.Vector3} destination vector
  */
-function moveImg(destVector) {
+function moveImg(destVector, scene) {
     var imgPlane = scene.getMeshByName("imgPlane");
 
     var animation = new BABYLON.Animation("moveImg", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
@@ -44,7 +44,7 @@ function moveImg(destVector) {
     scene.beginAnimation(imgPlane, 0, 90);
 }
 
-function zoomIn(destVector) {
+function zoomIn(destVector, scene) {
     var camera = scene.getCameraByName("mainCamera");
 
     var animation = new BABYLON.Animation("moveImg", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);

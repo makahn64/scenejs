@@ -44,8 +44,6 @@ var createScene = function() {
 
     var decal = drawDecal(1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
     decal.material = imgMat;
-    var decal2 = drawDecal(1000, imgSphere, new BABYLON.Vector3(.25, .25, .25));
-    decal2.material = imgMat;
 
     return scene;
 };
@@ -54,7 +52,7 @@ var scene = createScene();
 
 // Make earth rotate
 var alpha = 0;
-var rotate = false;
+var rotate = true;
 var earth = scene.getMeshByName("Earth");
 scene.beforeRender = function() {
     if(rotate) {
@@ -69,10 +67,13 @@ window.setTimeout(function() {
     var imgMat = scene.getMaterialByName("imgMat");
 
     rmText();
-    moveEarth(new BABYLON.Vector3(0, 0, 0));
-    moveImg(new BABYLON.Vector3(0, 0, -3.5));
-    //zoomIn(new BABYLON.Vector3(0, 0, -5.2));
-    console.log("in settimeout");
+    moveEarth(new BABYLON.Vector3(0, 0, 0), scene);
+    moveImg(new BABYLON.Vector3(0, 0, -3.5), scene);
+
+    var decal = drawDecal(1000, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+    decal.material = imgMat;
+
+    //zoomIn(new BABYLON.Vector3(0, 0, -5.2), scene);
     //switchToFollowCam();
 }, 3000);
 
