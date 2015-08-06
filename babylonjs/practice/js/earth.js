@@ -42,44 +42,28 @@ var createScene = function () {
     imgSphere.material.alpha = 0;
     imgSphere.parent = earth;
 
-    var decal = drawDecal(1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+    var decal = drawDecal("decal", 1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
     decal.material = imgMat;
-
 
     return scene;
 };
 
 var scene = createScene();
 
-function putBob2(vnum) {
-
-    console.log("Adding bob @: " + vnum);
-    var imgSphere = scene.getMeshByName("imgSphere");
-    var imgMat = scene.getMaterialByName("imgMat");
-    var decal2 = drawDecal(vnum, imgSphere, new BABYLON.Vector3(.25, .25, .25));
-    decal2.material = imgMat;
-}
-
-
-setTimeout(function () {
-               for (var v = 0; v < 1200; v++) {
-                   putBob2(v);
-               }
-           }
-    ,
-           1
-)
-
-
-/*
-for (var v = 0; v < 1200; v++) {
-    putBob2(v);
-}
-*/
+// This works for adding bobs
+/*for (var vnum = 0; vnum < 1200; vnum++) {
+    setTimeout((function (v) {
+        console.log("Adding bob @: " + v);
+        var imgSphere = scene.getMeshByName("imgSphere");
+        var imgMat = scene.getMaterialByName("imgMat");
+        var decal2 = drawDecal("decal2", v, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+        decal2.material = imgMat;
+    })(vnum), 1);
+}*/
 
 // Make earth rotate
 var alpha = 0;
-var rotate = false;
+var rotate = true;
 var earth = scene.getMeshByName("Earth");
 
 scene.beforeRender = function () {
@@ -98,9 +82,7 @@ window.setTimeout(function () {
     moveEarth(new BABYLON.Vector3(0, 0, 0), scene);
     moveImg(new BABYLON.Vector3(0, 0, -3.5), scene);
 
-    //putBob2();
-    //zoomIn(new BABYLON.Vector3(0, 0, -5.2), scene);
-    //switchToFollowCam();
+    zoomIn(scene);
 }, 3000);
 
 engine.runRenderLoop(function () {

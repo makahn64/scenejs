@@ -5,7 +5,7 @@
  * @param sourceMesh {BABYLON.Mesh} mesh to draw decal on
  * @param size {BABYLON.Vector3} size of decal
  */
-function drawDecal(idx, sourceMesh, size) {
+function drawDecal(name, idx, sourceMesh, size) {
     var indices = sourceMesh.getIndices();
     var positions = sourceMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     var normals = sourceMesh.getVerticesData(BABYLON.VertexBuffer.NormalKind);
@@ -163,8 +163,7 @@ function drawDecal(idx, sourceMesh, size) {
         }
     }
     // Return mesh
-    var decal = new BABYLON.Mesh(name, sourceMesh.getScene());
-    decal.parent = sourceMesh;
+    var decal = new BABYLON.Mesh(name, sourceMesh.getScene(), sourceMesh);
     vertexData.applyToMesh(decal);
     decal.position = position.clone();
     decal.rotation = new BABYLON.Vector3(pitch, yaw, angle);
