@@ -77,7 +77,7 @@ var scene = SceneJS.createScene({
 var eye = {x: 0, y: 1, z: 10};
 var eyeTarget = {x: 0, y: 10, z: -10};
 
-//Change the 'to' param to this to get array tweening
+//Change the 'to' param to this to try array tweening
 var eyeTargets = {
     x: [0, 0, 0, 0],
     y: [0, 1, 10, 0],
@@ -91,11 +91,13 @@ var tween = new TWEEN.Tween(eye).to(eyeTarget, 10000);
 //tween.easing(TWEEN.Easing.Elastic.InOut)
 //tween.easing(TWEEN.Easing.Bounce.InOut);
 
-//tween.repeat(10);
-//tween.yoyo(true);
+tween.repeat(10);
+tween.yoyo(true);
 
-var tweenB = new TWEEN.Tween(eye).to({y: -10}, 10000);
-tween.chain(tweenB);
+//Comment out the repeat and yoyo above and uncomment the below to try chained tweening
+
+//var tweenB = new TWEEN.Tween(eye).to({y: -10}, 10000);
+//tween.chain(tweenB);
 
 
 scene.getNode("lookAt", function (lookAt) {
@@ -106,7 +108,8 @@ scene.getNode("lookAt", function (lookAt) {
 
     tween.onUpdate(up);
 
-    tweenB.onUpdate(up);
+    //Uncomment if doing chaining
+    //tweenB.onUpdate(up);
 
     tween.start();
 
