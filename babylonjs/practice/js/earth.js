@@ -82,8 +82,11 @@ window.setTimeout(function () {
     moveEarth(new BABYLON.Vector3(0, 0, 0), scene);
     moveImg(new BABYLON.Vector3(0, 0, -3.5), scene);
 
+    rotate = false;
+    spinEarth(1, scene);
+
     zoomIn(scene);
-}, 3000);
+}, 2000);
 
 engine.runRenderLoop(function () {
     scene.render();

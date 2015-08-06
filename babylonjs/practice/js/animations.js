@@ -24,6 +24,31 @@ function moveEarth(destVector, scene) {
 }
 
 /**
+ * Spins the earth to the given y-rotation.
+ * @param yRot {Number} new y-rotation
+ * @param scene {BABYLON.Scene}
+ */
+function spinEarth(yRot, scene) {
+    var earth = scene.getMeshByName("Earth");
+
+    var animation = new BABYLON.Animation("spinEarth", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: earth.rotation.y});
+    keys.push({frame: 90, value: yRot});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    earth.animations.push(animation);
+    scene.beginAnimation(earth, 0, 90);
+}
+
+/**
  * Creates an animation to move the image plane and executes it.
  * @param destVector {BABYLON.Vector3} destination vector
  * @param scene {BABYLON.Scene}
