@@ -1,7 +1,7 @@
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
 
-var createScene = function() {
+var createScene = function () {
     // Set scene and background color
     var scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color3(1, 1, 1);
@@ -45,24 +45,52 @@ var createScene = function() {
     var decal = drawDecal(1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
     decal.material = imgMat;
 
+
     return scene;
 };
 
 var scene = createScene();
 
+function putBob2(vnum) {
+
+    console.log("Adding bob @: " + vnum);
+    var imgSphere = scene.getMeshByName("imgSphere");
+    var imgMat = scene.getMaterialByName("imgMat");
+    var decal2 = drawDecal(vnum, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+    decal2.material = imgMat;
+}
+
+
+setTimeout(function () {
+               for (var v = 0; v < 1200; v++) {
+                   putBob2(v);
+               }
+           }
+    ,
+           1
+)
+
+
+/*
+for (var v = 0; v < 1200; v++) {
+    putBob2(v);
+}
+*/
+
 // Make earth rotate
 var alpha = 0;
-var rotate = true;
+var rotate = false;
 var earth = scene.getMeshByName("Earth");
-scene.beforeRender = function() {
-    if(rotate) {
+
+scene.beforeRender = function () {
+    if (rotate) {
         earth.rotation.y = alpha;
         alpha -= 0.001;  // issues with constantly decrementing?
     }
 };
 
 addText("Bob", "San Jose, CA");
-window.setTimeout(function() {
+window.setTimeout(function () {
     var imgSphere = scene.getMeshByName("imgSphere");
     var imgMat = scene.getMaterialByName("imgMat");
 
@@ -70,17 +98,15 @@ window.setTimeout(function() {
     moveEarth(new BABYLON.Vector3(0, 0, 0), scene);
     moveImg(new BABYLON.Vector3(0, 0, -3.5), scene);
 
-    var decal = drawDecal(1000, imgSphere, new BABYLON.Vector3(.25, .25, .25));
-    decal.material = imgMat;
-
+    //putBob2();
     //zoomIn(new BABYLON.Vector3(0, 0, -5.2), scene);
     //switchToFollowCam();
 }, 3000);
 
-engine.runRenderLoop(function() {
+engine.runRenderLoop(function () {
     scene.render();
 });
 
-window.addEventListener("resize", function() {
+window.addEventListener("resize", function () {
     engine.resize();
 });
