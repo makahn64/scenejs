@@ -42,8 +42,8 @@ var createScene = function () {
     imgSphere.material.alpha = 0;
     imgSphere.parent = earth;
 
-    var decal = drawDecal("decal", 1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
-    decal.material = imgMat;
+    //var decal = drawDecal("decal", 1001, imgSphere, new BABYLON.Vector3(.25, .25, .25));
+    //decal.material = imgMat;
 
     return scene;
 };
@@ -77,15 +77,9 @@ addText("Bob", "San Jose, CA");
 window.setTimeout(function () {
     var imgSphere = scene.getMeshByName("imgSphere");
     var imgMat = scene.getMaterialByName("imgMat");
+    var imgPlane = scene.getMeshByName("imgPlane");
 
-    rmText();
-    moveEarth(new BABYLON.Vector3(0, 0, 0), scene);
-    moveImg(new BABYLON.Vector3(0, 0, -3.5), scene);
-
-    rotate = false;
-    spinEarth(1, scene);
-
-    zoomIn(scene);
+    setUpForPlacement(scene, zoomOut);
 }, 2000);
 
 engine.runRenderLoop(function () {
