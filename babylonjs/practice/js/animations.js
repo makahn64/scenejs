@@ -5,7 +5,7 @@
  * @returns {BABYLON.Animation}
  */
 function moveEarth(destVector, scene) {
-    var earth = scene.getMeshByName("Earth");
+    var earth = scene.getMeshByName("earth");
 
     var animation = new BABYLON.Animation("moveEarth", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
 
@@ -33,7 +33,7 @@ function moveEarth(destVector, scene) {
  * @returns {BABYLON.Animation}
  */
 function spinEarth(yRot, scene) {
-    var earth = scene.getMeshByName("Earth");
+    var earth = scene.getMeshByName("earth");
 
     var animation = new BABYLON.Animation("spinEarth", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
 

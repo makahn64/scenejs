@@ -235,7 +235,7 @@ function setUpForPlacement(scene, callback) {
     animations.push(spinEarth(Math.PI / 2, scene));
     animations.push(moveEarth(new BABYLON.Vector3(0, 0, 0), scene));
     animations.push(moveImg(new BABYLON.Vector3(0, 0, -3), scene));
-    animations.push(scaleImg(new BABYLON.Vector3(0.25, 0.25, 0), scene));
+    animations.push(scaleImg(new BABYLON.Vector3(0.25, -0.25, 0), scene));
     animations.push(zoomIn(scene));
 
     waitForAnimations(animations, callback);
