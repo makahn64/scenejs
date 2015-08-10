@@ -1,18 +1,18 @@
 /**
- * Creates an animation to move the earth and executes it.
- * @param destVector {BABYLON.Vector3} destination vector
+ * Spins the earth to the given y-rotation
+ * @param yRot {Number} new y-rotation (in radians)
  * @param scene {BABYLON.Scene}
  * @returns {BABYLON.Animation}
  */
-function moveEarth(destVector, scene) {
+function spinEarthY(yRot, scene) {
     var earth = scene.getMeshByName("earth");
 
-    var animation = new BABYLON.Animation("moveEarth", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+    var animation = new BABYLON.Animation("spinEarthY", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
-    keys.push({frame: 0, value: earth.position});
-    keys.push({frame: 90, value: destVector});
+    keys.push({frame: 0, value: earth.rotation.y});
+    keys.push({frame: 90, value: yRot});
     animation.setKeys(keys);
 
     // Attach easing function
@@ -27,20 +27,20 @@ function moveEarth(destVector, scene) {
 }
 
 /**
- * Spins the earth to the given y-rotation
- * @param yRot {Number} new y-rotation (in radians)
+ * Spins the earth to the given x-rotation
+ * @param xRot {Number} new x-rotation (in radians)
  * @param scene {BABYLON.Scene}
  * @returns {BABYLON.Animation}
  */
-function spinEarth(yRot, scene) {
+function spinEarthX(xRot, scene) {
     var earth = scene.getMeshByName("earth");
 
-    var animation = new BABYLON.Animation("spinEarth", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+    var animation = new BABYLON.Animation("spinEarthX", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
-    keys.push({frame: 0, value: earth.rotation.y});
-    keys.push({frame: 90, value: yRot});
+    keys.push({frame: 0, value: earth.rotation.x});
+    keys.push({frame: 90, value: xRot});
     animation.setKeys(keys);
 
     // Attach easing function
@@ -137,9 +137,10 @@ function zoomIn(scene) {
 
 /**
  * Zooms out from the origin.
+ * @param scene {BABYLON.Scene}
  * @returns {BABYLON.Animation}
  */
-function zoomOut() {
+function zoomOut(scene) {
     var camera = scene.activeCamera;
 
     var animation = new BABYLON.Animation("zoomOut", "fov", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
@@ -147,7 +148,35 @@ function zoomOut() {
     // Create array with animation keys
     var keys = [];
     keys.push({frame: 0, value: camera.fov});
-    keys.push({frame: 90, value: 1});
+    keys.push({frame: 90, value: 0.8});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 90);
+
+    return animation;
+}
+
+/**
+ * Creates an animation to move the camera and executes it.
+ * @param destVector {BABYLON.Vector3}
+ * @param scene {BABYLON.Scene}
+ * @returns {BABYLON.Animation}
+ */
+function moveCamera(destVector, scene) {
+    var camera = scene.activeCamera;
+
+    var animation = new BABYLON.Animation("moveCamera", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: camera.position});
+    keys.push({frame: 90, value: destVector});
     animation.setKeys(keys);
 
     // Attach easing function

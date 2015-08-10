@@ -7,14 +7,13 @@ var createScene = function () {
     scene.clearColor = new BABYLON.Color3(1, 1, 1);
 
     // Create camera
-    var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0, 0, BABYLON.Vector3.Zero(), scene);
-    mainCamera.setPosition(new BABYLON.Vector3(0, 0, -10));
+    var mainCamera = new BABYLON.FreeCamera("mainCamera", new BABYLON.Vector3(-3, -1, -10), scene);
     scene.activeCamera = mainCamera;
-    scene.activeCamera.attachControl(canvas);
+    //scene.activeCamera.attachControl(canvas);
 
     // Create earth
     var earth = BABYLON.Mesh.CreateSphere("earth", 25, 5, scene);
-    earth.position = new BABYLON.Vector3(3, 1, 0);
+    earth.position = new BABYLON.Vector3(0, 0, 0);
     earth.rotation.x = Math.PI;
     earth.rotation.y = Math.PI;
 
@@ -63,7 +62,7 @@ function addPerson() {
     // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 1, 50, scene);
     imgPlane.scaling.y = -1;
-    imgPlane.position = new BABYLON.Vector3(-5, 1, 0);
+    imgPlane.position = new BABYLON.Vector3(-6.5, -0.25, -3);
 
     // Define the material for the image plane
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
@@ -75,6 +74,6 @@ function addPerson() {
     addText(name, location);
 
     window.setTimeout(function() {
-        setUpForPlacement(scene, zoomOut);
+        startPlacement(yRot, scene, applyImgToEarth);
     }, 1000);
 }
