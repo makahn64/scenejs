@@ -35,12 +35,40 @@ function spinEarthY(yRot, scene) {
 function spinEarthX(xRot, scene) {
     var earth = scene.getMeshByName("earth");
 
-    var animation = new BABYLON.Animation("spinEarthX", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+    var animation = new BABYLON.Animation("spinEarthX", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
     keys.push({frame: 0, value: earth.rotation.x});
     keys.push({frame: 90, value: xRot});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    earth.animations.push(animation);
+    scene.beginAnimation(earth, 0, 90);
+
+    return animation;
+}
+
+/**
+ * Spins the earth to the given x-rotation
+ * @param rot {BABYLON.Vector3} new rotation vector (in radians)
+ * @param scene {BABYLON.Scene}
+ * @returns {BABYLON.Animation}
+ */
+function spinEarth(rot, scene) {
+    var earth = scene.getMeshByName("earth");
+
+    var animation = new BABYLON.Animation("spinEarth", "rotation", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: earth.rotation});
+    keys.push({frame: 90, value: rot});
     animation.setKeys(keys);
 
     // Attach easing function

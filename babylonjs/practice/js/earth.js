@@ -41,6 +41,12 @@ scene.beforeRender = function () {
         else {
             earth.rotation.y = 0;
         }
+        if(earth.rotation.x < Math.PI) {
+            earth.rotation.x += 0.005;
+        }
+        if(earth.rotation.x > Math.PI) {
+            earth.rotation.x -= 0.005;
+        }
     }
 };
 
@@ -58,6 +64,7 @@ function addPerson() {
     var location = document.getElementById("location").value;
     var imgNum = document.getElementById("imgNum").value;
     var yRot = parseFloat(document.getElementById("yRot").value);
+    var xRot = parseFloat(document.getElementById("xRot").value);
 
     // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 1, 50, scene);
@@ -74,6 +81,6 @@ function addPerson() {
     addText(name, location);
 
     window.setTimeout(function() {
-        startPlacement(yRot, scene, applyImgToEarth);
+        startPlacement(xRot, yRot, scene, applyImgToEarth);
     }, 1000);
 }

@@ -1,16 +1,20 @@
 /**
  * Sets up the scene for placement of the image on the earth.
- * @param yRot {Number}
+ * @param xRot {Number}
+ * @param yRot {Number} angle between zero and 2*pi (in radians)
  * @param scene {BABYLON.Scene}
  * @param callback
  */
-function startPlacement(yRot, scene, callback) {
+function startPlacement(xRot, yRot, scene, callback) {
     rmText();
     rotate = false;
 
-    var animations = [];
-    animations.push(spinEarthY(yRot, scene));
-    //animations.push(spinEarthX(xRot, scene));
+    // issue: rotating x relative to the original orientation
+    xRot = 5*Math.PI/4;
+
+    var animations = [];;
+    var spin = new BABYLON.Vector3(xRot, yRot, 0);
+    animations.push(spinEarth(spin, scene));
     animations.push(moveCamera(new BABYLON.Vector3(0, 0, -10), scene));
     animations.push(moveImg(new BABYLON.Vector3(0, 0, -2.51), scene));
     animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
@@ -66,6 +70,7 @@ function applyImgToEarth() {
     imgPlane.name = '';
 
     zoomOut(scene);
+    console.log(earth.rotation.y);
     moveCamera(new BABYLON.Vector3(-3, -1, -10), scene);
     rotate = true;
 }
