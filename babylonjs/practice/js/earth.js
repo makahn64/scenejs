@@ -35,6 +35,7 @@ var earth = scene.getMeshByName("earth");
 
 scene.beforeRender = function () {
     if (rotate) {
+        //earth.rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
         if(earth.rotation.y > -2 * Math.PI) {
             earth.rotation.y -= 0.005;
         }
@@ -46,6 +47,12 @@ scene.beforeRender = function () {
         }
         if(earth.rotation.x > Math.PI) {
             earth.rotation.x -= 0.005;
+        }
+        if(earth.rotation.z < 0) {
+            earth.rotation.z += 0.01;
+        }
+        if(earth.rotation.z > 0) {
+            earth.rotation.z -= 0.01;
         }
     }
 };
@@ -63,8 +70,8 @@ function addPerson() {
     var name = document.getElementById("name").value;
     var location = document.getElementById("location").value;
     var imgNum = document.getElementById("imgNum").value;
-    var yRot = parseFloat(document.getElementById("yRot").value);
-    var xRot = parseFloat(document.getElementById("xRot").value);
+    var lat = parseFloat(document.getElementById("lat").value);
+    var long = parseFloat(document.getElementById("long").value);
 
     // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 1, 50, scene);
@@ -81,6 +88,6 @@ function addPerson() {
     addText(name, location);
 
     window.setTimeout(function() {
-        startPlacement(xRot, yRot, scene, applyImgToEarth);
+        startPlacement(lat, long, 5, scene, applyImgToEarth);
     }, 1000);
 }

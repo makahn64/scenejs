@@ -1,26 +1,51 @@
 /**
  * Sets up the scene for placement of the image on the earth.
- * @param xRot {Number}
- * @param yRot {Number} angle between zero and 2*pi (in radians)
+ * @param lat {Number} latitude
+ * @param long {Number} longitude
  * @param scene {BABYLON.Scene}
  * @param callback
  */
-function startPlacement(xRot, yRot, scene, callback) {
+function startPlacement(lat, long, radius, scene, callback) {
+    var earth = scene.getMeshByName("earth");
     rmText();
     rotate = false;
 
-    // issue: rotating x relative to the original orientation
-    xRot = 5*Math.PI/4;
+    var animations = [];
 
-    var animations = [];;
-    var spin = new BABYLON.Vector3(xRot, yRot, 0);
+    var spin = computeRotationVector(lat, long, radius);
+    console.log(spin);
     animations.push(spinEarth(spin, scene));
+
     animations.push(moveCamera(new BABYLON.Vector3(0, 0, -10), scene));
     animations.push(moveImg(new BABYLON.Vector3(0, 0, -2.51), scene));
     animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
     animations.push(zoomIn(scene));
 
     waitForAnimations(animations, callback);
+}
+
+function computeRotationVector(lat, long, r) {
+    var theta = long * Math.PI / 180;
+    var psi = (Math.PI / 2) - (lat * Math.PI / 180);
+    var alpha;
+
+    if(theta < 0 || theta > 2 * Math.PI) {
+        console.log("Invalid longitude " + theta);
+    }
+    if(psi < 0 || psi > Math.PI) {
+        console.log("Invalid latitude " + psi);
+    }
+
+    // Convert to cartesian
+    var x, y, z;
+    x = r * Math.sin(theta) * Math.sin(psi);
+    y = r * Math.cos(psi);
+    z = r * Math.cos(theta) * Math.sin(psi);
+
+    alpha = Math.atan2(x, y);
+
+    var result = new BABYLON.Vector3(Math.PI + psi, theta, alpha);
+    return result;
 }
 
 /**
@@ -70,7 +95,6 @@ function applyImgToEarth() {
     imgPlane.name = '';
 
     zoomOut(scene);
-    console.log(earth.rotation.y);
     moveCamera(new BABYLON.Vector3(-3, -1, -10), scene);
     rotate = true;
 }

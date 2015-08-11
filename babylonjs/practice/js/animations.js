@@ -35,7 +35,7 @@ function spinEarthY(yRot, scene) {
 function spinEarthX(xRot, scene) {
     var earth = scene.getMeshByName("earth");
 
-    var animation = new BABYLON.Animation("spinEarthX", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+    var animation = new BABYLON.Animation("spinEarthX", "rotationQuaternion", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
