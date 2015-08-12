@@ -15,8 +15,8 @@ function addText(name, location) {
         style.position = "absolute";
         style.margin = "auto";
         // TODO: make position of text relative to image/earth
-        style.top = "250px";
-        style.left = "425px";
+        style.top = "220px";
+        style.left = "550px";
         style.transition = "opacity 1s ease";
         myText.id = "myText";
 

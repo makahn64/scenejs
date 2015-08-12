@@ -45,7 +45,7 @@ function moveImg(destVector, scene) {
 
     // Attach easing function
     var easingFunc = new BABYLON.SineEase();
-    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEOUT);
     animation.setEasingFunction(easingFunc);
 
     imgPlane.animations.push(animation);
@@ -157,20 +157,20 @@ function zoomOut(scene) {
 }
 
 /**
- * Creates an animation to move the camera and executes it.
- * @param destVector {BABYLON.Vector3}
+ * Creates an animation to move the camera's target x position and executes it.
+ * @param targetX {Number}
  * @param scene {BABYLON.Scene}
  * @returns {BABYLON.Animation}
  */
-function moveCamera(destVector, scene) {
+function moveCameraTargetX(targetX, scene) {
     var camera = scene.activeCamera;
 
-    var animation = new BABYLON.Animation("moveCamera", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+    var animation = new BABYLON.Animation("moveCameraTargetX", "target.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
-    keys.push({frame: 0, value: camera.position});
-    keys.push({frame: 90, value: destVector});
+    keys.push({frame: 0, value: camera.target.x});
+    keys.push({frame: 90, value: targetX});
     animation.setKeys(keys);
 
     // Attach easing function

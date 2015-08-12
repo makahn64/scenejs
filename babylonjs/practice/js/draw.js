@@ -20,6 +20,7 @@ function startPlacement(lat, long, radius, scene, callback) {
     var animations = [];
 
     animations.push(spinEarthY(relLong, scene));
+    animations.push(moveCameraTargetX(0, scene));
     animations.push(moveCameraBeta(relLat, scene));
     animations.push(moveImg(new BABYLON.Vector3(0, imgY, imgZ - 0.01), scene));
     animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
@@ -78,8 +79,9 @@ function applyImgToEarth() {
     imgPlane.id = '';
     imgPlane.name = '';
 
-    zoomOut(scene);
+    moveCameraTargetX(-3, scene);
     moveCameraBeta(Math.PI / 2, scene);
+    zoomOut(scene);
     rotate = true;
 }
 
