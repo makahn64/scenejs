@@ -65,7 +65,7 @@ function addPerson() {
     // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 0.65, 50, scene);
     imgPlane.scaling.y = -1;
-    imgPlane.position = new BABYLON.Vector3(-4.6, 0.5, -4);
+    imgPlane.position = new BABYLON.Vector3(-4.6, 0.2, -4);
 
     // Define the material for the image plane
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
