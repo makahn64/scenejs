@@ -38,7 +38,7 @@ scene.beforeRender = function () {
     if (rotate) {
         //earth.rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
         if(earth.rotation.y > -2 * Math.PI) {
-            earth.rotation.y -= 0.005;
+            earth.rotation.y -= 0.0025;
         }
         else {
             earth.rotation.y = 0;
