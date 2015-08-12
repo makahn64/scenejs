@@ -8,7 +8,7 @@ var createScene = function() {
 
     // Create camera
     var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0, 0, BABYLON.Vector3.Zero(), scene);
-    mainCamera.setPosition(new BABYLON.Vector3(0, 0, -10));
+    mainCamera.setPosition(new BABYLON.Vector3(0, 0, -20));
     scene.activeCamera = mainCamera;
     scene.activeCamera.attachControl(canvas);
 
@@ -18,25 +18,10 @@ var createScene = function() {
     light.specular = new BABYLON.Color3(1, 1, 1);
     light.intensity = 0.75;
 
-    // Create tickets
-    var ticket1 = BABYLON.Mesh.CreatePlane("ticket1", 2, scene);
-    ticket1.position = new BABYLON.Vector3(0, 0, 0);
-    ticket1.scaling.y = 1.5;
-
-    // Define the material for the ticket
-    var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
-    ticketMat.backFaceCulling = false;
-    ticketMat.diffuseTexture = new BABYLON.Texture("img/t001.jpg", scene);
-    ticket1.material = ticketMat;
-
-    // Animate ticket
-    animateTicket("ticket1", 10, -10, scene);
-
     return scene;
 };
 
 var scene = createScene();
-
 
 engine.runRenderLoop(function() {
     scene.render();
@@ -45,3 +30,50 @@ engine.runRenderLoop(function() {
 window.addEventListener("resize", function() {
     engine.resize();
 });
+
+function getRandCoord() {
+    return new BABYLON.Vector3(-10 + 20 * Math.random(), -15 + 30 * Math.random(), -10 + 20 * Math.random());
+}
+
+function getRandTicket(name, scene) {
+    var coord = getRandCoord();
+    console.log(coord);
+    var ticketNum = Math.floor(Math.random() * 9) + 1;
+
+    var ticket = BABYLON.Mesh.CreatePlane(name, 4, scene);
+    ticket.position = coord;
+    ticket.scaling.y = 1.5;
+    ticket.myYDirection = 0.5 - Math.random();
+    console.log(ticket.myYDirection);
+
+    var ticketMat = new BABYLON.StandardMaterial(name+"Mat", scene);
+    ticketMat.backFaceCulling = false;
+    ticketMat.diffuseTexture = new BABYLON.Texture("img/t00" + ticketNum +".jpg", scene);
+
+    ticket.material = ticketMat;
+
+    return ticket;
+}
+
+function move(ticket) {
+    var yInc = 0.02;
+    var y = ticket.position.y + yInc * ticket.myYDirection;
+
+    if(y > 20 || y < -20) {
+        ticket.myYDirection *= -1;
+    }
+
+    ticket.position.y = y;
+}
+
+var tickets = [];
+for(var i = 0; i < 20; i++) {
+    var newTicket = getRandTicket("ticket"+i, scene);
+    tickets.push(newTicket);
+}
+
+scene.beforeRender = function() {
+    for(var i = 0; i < tickets.length; i++) {
+        move(tickets[i]);
+    }
+};
