@@ -2,6 +2,7 @@
  * Sets up the scene for placement of the image on the earth.
  * @param lat {Number} latitude
  * @param long {Number} longitude
+ * @param radius {Number} radius of earth mesh
  * @param scene {BABYLON.Scene}
  * @param callback
  */
@@ -10,47 +11,27 @@ function startPlacement(lat, long, radius, scene, callback) {
     rmText();
     rotate = false;
 
+    var relLat = Math.PI / 2 - lat * Math.PI / 180;
+    var relLong = long * Math.PI / 180 - Math.PI / 2;
+    var imgY = radius * Math.cos(relLat);
+    var imgZ = -radius * Math.sin(relLat);
+    var imgTilt = Math.PI / 2 - relLat;
+
     var animations = [];
 
-    var spin = computeRotationVector(lat, long, radius);
-    console.log(spin);
-    animations.push(spinEarth(spin, scene));
-
-    animations.push(moveCamera(new BABYLON.Vector3(0, 0, -10), scene));
-    animations.push(moveImg(new BABYLON.Vector3(0, 0, -2.51), scene));
+    animations.push(spinEarthY(relLong, scene));
+    animations.push(moveCameraBeta(relLat, scene));
+    animations.push(moveImg(new BABYLON.Vector3(0, imgY, imgZ - 0.01), scene));
     animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
+    animations.push(rotateImgX(imgTilt, scene));
     animations.push(zoomIn(scene));
 
     waitForAnimations(animations, callback);
 }
 
-function computeRotationVector(lat, long, r) {
-    var theta = long * Math.PI / 180;
-    var psi = (Math.PI / 2) - (lat * Math.PI / 180);
-    var alpha;
-
-    if(theta < 0 || theta > 2 * Math.PI) {
-        console.log("Invalid longitude " + theta);
-    }
-    if(psi < 0 || psi > Math.PI) {
-        console.log("Invalid latitude " + psi);
-    }
-
-    // Convert to cartesian
-    var x, y, z;
-    x = r * Math.sin(theta) * Math.sin(psi);
-    y = r * Math.cos(psi);
-    z = r * Math.cos(theta) * Math.sin(psi);
-
-    alpha = Math.atan2(x, y);
-
-    var result = new BABYLON.Vector3(Math.PI + psi, theta, alpha);
-    return result;
-}
-
 /**
  * Waits for all animations to complete before calling the callback function.
- * @param animations {Array.<BABYLON.Animation>} array of animations
+ * @param animations {Array.<BABYLON.Animation>}
  * @param callback
  */
 function waitForAnimations(animations, callback) {
@@ -84,8 +65,11 @@ function applyImgToEarth() {
     var newImgTRS = decomposeTRSMatrix(newImgMatrix);
     var earthTRS = decomposeTRSMatrix(earthMatrixInv);
 
-    imgPlane.position = newImgTRS.translation;
+    var xRot = imgPlane.rotation.x;
+
     imgPlane.rotation = earthTRS.rotation;
+    imgPlane.rotation.x = xRot;
+    imgPlane.position = newImgTRS.translation;
     imgPlane.scaling = newImgTRS.scaling;
     imgPlane.scaling.y *= -1;   // y scale must be neg. for disc
 
@@ -95,7 +79,7 @@ function applyImgToEarth() {
     imgPlane.name = '';
 
     zoomOut(scene);
-    moveCamera(new BABYLON.Vector3(-3, -1, -10), scene);
+    moveCameraBeta(Math.PI / 2, scene);
     rotate = true;
 }
 
@@ -136,7 +120,7 @@ function decomposeTRSMatrix(mtx) {
         rotationMatrix.m[10] /= scaleZ;
     }
 
-    var rotX = Math.asin(-rotationMatrix.m[9]);
+    var rotX = Math.asin(-rotationMatrix.m[8]);
     var rotY = Math.atan2(rotationMatrix.m[8], rotationMatrix.m[10]);
     var rotZ = Math.atan2(rotationMatrix.m[1], rotationMatrix.m[5]);
 

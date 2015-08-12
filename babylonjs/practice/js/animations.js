@@ -27,62 +27,6 @@ function spinEarthY(yRot, scene) {
 }
 
 /**
- * Spins the earth to the given x-rotation
- * @param xRot {Number} new x-rotation (in radians)
- * @param scene {BABYLON.Scene}
- * @returns {BABYLON.Animation}
- */
-function spinEarthX(xRot, scene) {
-    var earth = scene.getMeshByName("earth");
-
-    var animation = new BABYLON.Animation("spinEarthX", "rotationQuaternion", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-
-    // Create array with animation keys
-    var keys = [];
-    keys.push({frame: 0, value: earth.rotation.x});
-    keys.push({frame: 90, value: xRot});
-    animation.setKeys(keys);
-
-    // Attach easing function
-    var easingFunc = new BABYLON.SineEase();
-    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
-    animation.setEasingFunction(easingFunc);
-
-    earth.animations.push(animation);
-    scene.beginAnimation(earth, 0, 90);
-
-    return animation;
-}
-
-/**
- * Spins the earth to the given x-rotation
- * @param rot {BABYLON.Vector3} new rotation vector (in radians)
- * @param scene {BABYLON.Scene}
- * @returns {BABYLON.Animation}
- */
-function spinEarth(rot, scene) {
-    var earth = scene.getMeshByName("earth");
-
-    var animation = new BABYLON.Animation("spinEarth", "rotation", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-
-    // Create array with animation keys
-    var keys = [];
-    keys.push({frame: 0, value: earth.rotation});
-    keys.push({frame: 90, value: rot});
-    animation.setKeys(keys);
-
-    // Attach easing function
-    var easingFunc = new BABYLON.SineEase();
-    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
-    animation.setEasingFunction(easingFunc);
-
-    earth.animations.push(animation);
-    scene.beginAnimation(earth, 0, 90);
-
-    return animation;
-}
-
-/**
  * Creates an animation to move the image plane and executes it.
  * @param destVector {BABYLON.Vector3} destination vector
  * @param scene {BABYLON.Scene}
@@ -97,6 +41,28 @@ function moveImg(destVector, scene) {
     var keys = [];
     keys.push({frame: 0, value: imgPlane.position});
     keys.push({frame: 90, value: destVector});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    imgPlane.animations.push(animation);
+    scene.beginAnimation(imgPlane, 0, 90);
+
+    return animation;
+}
+
+function rotateImgX(xRot, scene) {
+    var imgPlane = scene.getMeshByName("imgPlane");
+
+    var animation = new BABYLON.Animation("rotateImgX", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: imgPlane.rotation.x});
+    keys.push({frame: 90, value: xRot});
     animation.setKeys(keys);
 
     // Attach easing function
@@ -205,6 +171,34 @@ function moveCamera(destVector, scene) {
     var keys = [];
     keys.push({frame: 0, value: camera.position});
     keys.push({frame: 90, value: destVector});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 90);
+
+    return animation;
+}
+
+/**
+ * Moves the camera's beta angle.
+ * @param beta {Number} angle in radians to move to
+ * @param scene {BABYLON.Scene}
+ * @returns {BABYLON.Animation}
+ */
+function moveCameraBeta(beta, scene) {
+    var camera = scene.activeCamera;
+
+    var animation = new BABYLON.Animation("moveCameraBeta", "beta", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: camera.beta});
+    keys.push({frame: 90, value: beta});
     animation.setKeys(keys);
 
     // Attach easing function
