@@ -21,11 +21,13 @@ var createScene = function () {
 
     // Define the material for the earth model
     var earthBase = new BABYLON.StandardMaterial("earthBase", scene);
-    earthBase.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+    //earthBase.emissiveColor = new BABYLON.Color3(0.75, 0.75, 0.75);
+    earthBase.emissiveTexture = new BABYLON.Texture("textures/earthEmit.gif", scene);
     earthBase.diffuseTexture = new BABYLON.Texture("textures/earth.jpg", scene);
-    earthBase.specularPower = 24;
+    earthBase.specularPower = 32;
     earthBase.specularTexture = new BABYLON.Texture("textures/earthSpecular.png", scene);
     earthBase.bumpTexture = new BABYLON.Texture("textures/earthNormal.jpg", scene);
+
     earth.material = earthBase;
 
     return scene;
