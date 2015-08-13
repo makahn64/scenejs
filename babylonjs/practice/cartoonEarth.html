@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>BabylonJS Earth Model</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div id="tempControls" style="position:absolute; z-index:2; padding-top:15px; padding-left:15px">
+    Name:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="name" value="Bob">&nbsp;
+    Location:&nbsp;<input type="text" id="location" value="San Jose, CA">&nbsp;
+    Image number (1 or 2):&nbsp;<input type="text" id="imgNum" value="2"><br>
+    Latitude:&nbsp;<input type="text" id="lat" value="37.33">&nbsp;&nbsp;
+    Longitude:&nbsp;<input type="text" id="long" value="-121.9"><br>
+    <button onclick="addPerson()">Add person</button>
+</div>
+
+<canvas id="renderCanvas"></canvas>
+</body>
+<script src="http://cdn.babylonjs.com/2-1/babylon.js"></script>
+<script src="js/text.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/draw.js"></script>
+<script src="js/earth.js"></script>
+</html>
