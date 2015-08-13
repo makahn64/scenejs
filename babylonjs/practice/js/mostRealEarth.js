@@ -21,7 +21,6 @@ var createScene = function () {
 
     // Define the material for the earth model
     var earthBase = new BABYLON.StandardMaterial("earthBase", scene);
-    //earthBase.emissiveColor = new BABYLON.Color3(0.75, 0.75, 0.75);
     earthBase.emissiveTexture = new BABYLON.Texture("textures/earthEmit.gif", scene);
     earthBase.diffuseTexture = new BABYLON.Texture("textures/earth.jpg", scene);
     earthBase.specularPower = 32;

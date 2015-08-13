@@ -11,9 +11,6 @@ var createScene = function () {
     scene.activeCamera = mainCamera;
     scene.activeCamera.attachControl(canvas);
 
-    var light = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(-2, 0, 0), scene);
-    light.intensity = 0.8;
-
     // Create earth
     var earth = BABYLON.Mesh.CreateSphere("earth", 100, 100, scene);
     earth.position = new BABYLON.Vector3(0, 0, 0);
@@ -22,10 +19,10 @@ var createScene = function () {
     // Define the material for the earth model
     var earthBase = new BABYLON.StandardMaterial("earthBase", scene);
     earthBase.emissiveColor = new BABYLON.Color3(1, 1, 1);
-    earthBase.specularPower = 14;
+    earthBase.specularPower = 64;
     earthBase.specularTexture = new BABYLON.Texture("textures/earthSpecular.png", scene);
-    earthBase.bumpTexture = new BABYLON.Texture("textures/earthNormal.jpg", scene);
-    earthBase.diffuseTexture = new BABYLON.Texture("textures/earthTop.jpeg", scene);
+    earthBase.diffuseTexture = new BABYLON.Texture("textures/earthTop1.jpeg", scene);
+
     earth.material = earthBase;
 
     return scene;
