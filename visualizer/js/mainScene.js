@@ -103,7 +103,10 @@ function displayVid(vidSrc, vidType, callback, idx) {
     };
 }
 
-// Assumes the viz source file contains a run scene function.
+/*
+ * Assumes the viz source file contains a run scene function and that it loads whatever
+ * other scripts it needs.
+ */
 function displayViz(vizSrc, callback, idx) {
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElement("script");

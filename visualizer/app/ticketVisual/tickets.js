@@ -65,13 +65,14 @@ function runScene() {
     }
 
     var tickets = [];
+
     for(var i = 0; i < 20; i++) {
         var newTicket = getRandTicket("ticket"+i, scene);
         tickets.push(newTicket);
     }
 
     scene.beforeRender = function() {
-        for(var i = 0; i < tickets.length; i++) {
+        for (var i = 0; i < tickets.length; i++) {
             move(tickets[i]);
         }
     };
