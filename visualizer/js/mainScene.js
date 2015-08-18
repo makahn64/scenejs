@@ -1,11 +1,7 @@
-var cycle = 0;
 function runPlaylist(playlist) {
-    // Process playlist
+
     function processPlaylist(item) {
         var curItem = item % 3;
-
-        if(curItem == 0)
-            console.log('cycle '+cycle++);
 
         if (curItem >= playlist.length) {
             console.log("Done with playlist");
@@ -42,6 +38,27 @@ function findTransitionEvent() {
     }
 }
 
+function purge(elem) {
+    var a = elem.attributes;
+    var i, l, n;
+
+    if(a) {
+        for(i = a.length - 1; i >= 0; i--) {
+            n = a[i].name;
+            if(typeof elem[n] === 'function') {
+                elem[n] = null;
+            }
+        }
+    }
+    a = elem.childNodes;
+    if (a) {
+        l = a.length;
+        for(i = 0; i < l; i++) {
+            purge(elem.childNodes[i]);
+        }
+    }
+}
+
 function displayImg(imgSrc, duration, callback, idx) {
     var div = document.getElementById("mediaDiv");
     var img = new Image();
@@ -54,6 +71,7 @@ function displayImg(imgSrc, duration, callback, idx) {
     var curTransition = 0;
     img.addEventListener(transitionEvent, function() {
         if(curTransition == 1) {
+            purge(img);
             div.removeChild(img);
             callback(idx);
         }
@@ -92,6 +110,7 @@ function displayVid(vidSrc, vidType, callback, idx) {
     var curTransition = 0;
     vid.addEventListener(transitionEvent, function() {
         if(curTransition == 1) {
+            purge(vid);
             div.removeChild(vid);
             callback(idx);
         }
