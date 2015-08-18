@@ -39,12 +39,12 @@ function findTransitionEvent() {
 }
 
 function displayImg(imgSrc, duration, callback, idx) {
-    var div = document.getElementById("myDiv");
+    var div = document.getElementById("mediaDiv");
     var img = new Image();
 
     img.src = window.location.href + imgSrc;
-    img.style.width = "100%";
-    img.style.height = "100%";
+    //img.style.width = "100%";
+    //img.style.height = "100%";
     img.style.opacity = "0";
     img.style.transition = "opacity 0.75s ease";
 
@@ -71,13 +71,14 @@ function displayImg(imgSrc, duration, callback, idx) {
 }
 
 function displayVid(vidSrc, vidType, callback, idx) {
-    var div = document.getElementById("myDiv");
+    var div = document.getElementById("mediaDiv");
     var vid = document.createElement("video");
     var source = document.createElement("source");
 
     vid.id = "myVid";
     vid.autoplay = "autoplay";
-    vid['min-height'] = '100%';
+    vid.width = '100%';
+    vid.height = 'auto';
     vid.style.opacity = "0";
     vid.style.transition = "opacity 0.75s ease";
 
