@@ -1,7 +1,11 @@
+var cycle = 0;
 function runPlaylist(playlist) {
     // Process playlist
     function processPlaylist(item) {
         var curItem = item % 3;
+
+        if(curItem == 0)
+            console.log('cycle '+cycle++);
 
         if (curItem >= playlist.length) {
             console.log("Done with playlist");
