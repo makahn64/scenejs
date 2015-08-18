@@ -43,10 +43,12 @@ function displayImg(imgSrc, duration, callback, idx) {
     var img = new Image();
 
     img.src = window.location.href + imgSrc;
-    //img.style.width = "100%";
-    //img.style.height = "100%";
     img.style.opacity = "0";
     img.style.transition = "opacity 0.75s ease";
+
+    img.style['min-height']= img.naturalHeight;
+    img.style['min-width'] = img.naturalWidth;
+    img.style['margin-top'] = img.naturalHeight / 2;
 
     var transitionEvent = findTransitionEvent();
     var curTransition = 0;
