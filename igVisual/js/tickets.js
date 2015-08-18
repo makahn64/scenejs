@@ -37,6 +37,32 @@ function runScene(igData, siteOrigin) {
         return new BABYLON.Vector3(-10 + 20 * Math.random(), -15 + 30 * Math.random(), -10 + 20 * Math.random());
     }
 
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var lines = text.split('\n');
+
+        for (var i = 0; i < lines.length; i++) {
+            var line = "";
+            var words = lines[i].split(" ");
+
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + " ";
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
+
+                if (testWidth > maxWidth) {
+                    context.fillText(line, x, y);
+                    line = words[n] + " ";
+                    y += lineHeight;
+                }
+                else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, y);
+            y += lineHeight;
+        }
+    }
+
     function getInstagram(idx, scene) {
         var coord = getRandCoord();
         var id = "ig" + i;
@@ -94,7 +120,7 @@ function runScene(igData, siteOrigin) {
 
         var text = new BABYLON.DynamicTexture("", 512, scene, true);
         var context = text.getContext();
-        text.drawText(fullname+' @'+username, null, 455, "bold 30px Segoe UI", 'black', 'white');
+        text.drawText('@'+username, null, 455, "bold 30px Segoe UI", 'black', 'white');
 
         var textMat = new BABYLON.StandardMaterial(id + "TxtMat", scene);
         textMat.backFaceCulling = false;
