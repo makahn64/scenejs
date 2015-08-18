@@ -75,8 +75,6 @@ function displayVid(vidSrc, vidType, callback, idx) {
 
     vid.id = "myVid";
     vid.autoplay = "autoplay";
-    vid.width = '100%';
-    vid.height = 'auto';
     vid.style.opacity = "0";
     vid.style.transition = "opacity 0.75s ease";
 
