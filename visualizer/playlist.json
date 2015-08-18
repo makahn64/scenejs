@@ -1,1 +1,1 @@
-[{"type":"image", "src":"img/test.jpg", "duration":"3000"}, {"type":"video", "src":"img/samplevideo.mp4"}, {"type":"viz", "src":"app/ticketVisual/tickets.js"}]
+[{"type":"image", "src":"img/test.jpg", "duration":"3000"}, {"type":"video", "src":"img/samplevideo.mp4"}, {"type":"viz", "src":"app/ticketVisual/tickets.js", "duration":"5000"}]

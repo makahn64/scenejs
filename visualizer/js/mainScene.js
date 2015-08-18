@@ -1,20 +1,20 @@
 function runPlaylist(playlist) {
     // Process playlist
     function processPlaylist(item) {
-        var curItem = item;
+        var curItem = item % 3;
 
         if (curItem >= playlist.length) {
             console.log("Done with playlist");
             return;
         }
         if (playlist[curItem].type == "video") {
-            displayVid(playlist[curItem].src, "video/mp4", processPlaylist, ++item);
+            displayVid(playlist[curItem].src, "video/mp4", processPlaylist, curItem + 1);
         }
         if (playlist[curItem].type == "image") {
-            displayImg(playlist[curItem].src, playlist[item].duration, processPlaylist, ++item);
+            displayImg(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
         }
         if (playlist[curItem].type == "viz") {
-            displayViz(playlist[curItem].src, processPlaylist, ++item);
+            displayViz(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
         }
     }
 
@@ -107,14 +107,26 @@ function displayVid(vidSrc, vidType, callback, idx) {
  * Assumes the viz source file contains a run scene function and that it loads whatever
  * other scripts it needs.
  */
-function displayViz(vizSrc, callback, idx) {
+function displayViz(vizSrc, duration, callback, idx) {
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElement("script");
     script.type = "text/javascript";
     script.src = vizSrc;
     head.appendChild(script);
 
+    var body = document.getElementsByTagName("body")[0];
+    var newCanvas = document.createElement("canvas");
+
     script.onload = function() {
         runScene();
+
+        window.setTimeout(function() {
+            var canvas = document.getElementById("renderCanvas");
+            body.removeChild(canvas);
+            newCanvas.id = "renderCanvas";
+            body.appendChild(newCanvas);
+
+            callback(idx);
+        }, duration);
     };
 }
