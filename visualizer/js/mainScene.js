@@ -45,20 +45,27 @@ function displayImg(imgSrc, duration, callback, idx) {
     img.src = window.location.href + imgSrc;
     img.style.width = "100%";
     img.style.height = "100%";
-    img.style.opacity = "1";
+    img.style.opacity = "0";
     img.style.transition = "opacity 0.75s ease";
 
     var transitionEvent = findTransitionEvent();
-    img.addEventListener(transitionEvent, function() {;
-        div.removeChild(img);
-        callback(idx);
+    var curTransition = 0;
+    img.addEventListener(transitionEvent, function() {
+        if(curTransition == 1) {
+            div.removeChild(img);
+            callback(idx);
+        }
+        curTransition++;
     });
 
     img.onload = function() {
         div.appendChild(img);
+        getComputedStyle(img).display;
+        img.style.opacity = "1";
+
         window.setTimeout(function() {
             getComputedStyle(img).display;
-            img.style.opacity = 0;
+            img.style.opacity = '0';
         }, duration);
     };
 }
@@ -70,7 +77,7 @@ function displayVid(vidSrc, vidType, callback, idx) {
 
     vid.id = "myVid";
     vid.autoplay = "autoplay";
-    vid.style.opacity = "1";
+    vid.style.opacity = "0";
     vid.style.transition = "opacity 0.75s ease";
 
     source.src = window.location.href + vidSrc;
@@ -80,14 +87,21 @@ function displayVid(vidSrc, vidType, callback, idx) {
     div.appendChild(vid);
 
     var transitionEvent = findTransitionEvent();
+    var curTransition = 0;
     vid.addEventListener(transitionEvent, function() {
-        div.removeChild(vid);
-        callback(idx);
+        if(curTransition == 1) {
+            div.removeChild(vid);
+            callback(idx);
+        }
+        curTransition++;
     });
+
+    getComputedStyle(vid).display;
+    vid.style.opacity = '1';
 
     vid.onended = function() {
         getComputedStyle(vid).display;
-        vid.style.opacity = 0;
+        vid.style.opacity = '0';
     };
 }
 
