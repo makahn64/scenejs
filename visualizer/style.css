@@ -11,3 +11,10 @@ html, body {
     height:100%;
     touch-action:none;
 }
+
+#myDiv {
+    width:100%;
+    height:100%;
+    position:absolute;
+    z-index:2;
+}
