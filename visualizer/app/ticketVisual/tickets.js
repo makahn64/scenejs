@@ -1,10 +1,15 @@
+var scene = undefined;
+var engine = undefined;
+var tickets;
+
 function runScene() {
     var canvas = document.getElementById("renderCanvas");
-    var engine = new BABYLON.Engine(canvas, true);
 
-    var createScene = function () {
-        // Set scene and background color
-        var scene = new BABYLON.Scene(engine);
+    // scene not yet created
+    if(scene == undefined) {
+        engine = new BABYLON.Engine(canvas, true);
+        scene = new BABYLON.Scene(engine);
+
         scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
         // Create camera
@@ -18,18 +23,20 @@ function runScene() {
         light.specular = new BABYLON.Color3(1, 1, 1);
         light.intensity = 0.75;
 
-        return scene;
-    };
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
 
-    var scene = createScene();
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
 
-    engine.runRenderLoop(function () {
-        scene.render();
-    });
-
-    window.addEventListener("resize", function () {
-        engine.resize();
-    });
+        scene.beforeRender = function() {
+            for (var i = 0; i < tickets.length; i++) {
+                move(tickets[i]);
+            }
+        };
+    }
 
     function getRandCoord() {
         return new BABYLON.Vector3(-10 + 20 * Math.random(), -15 + 30 * Math.random(), -10 + 20 * Math.random());
@@ -64,16 +71,16 @@ function runScene() {
         ticket.position.y = y;
     }
 
-    var tickets = [];
+    tickets = [];
 
     for(var i = 0; i < 20; i++) {
         var newTicket = getRandTicket("ticket"+i, scene);
         tickets.push(newTicket);
     }
+}
 
-    scene.beforeRender = function() {
-        for (var i = 0; i < tickets.length; i++) {
-            move(tickets[i]);
-        }
-    };
+function clearScene() {
+    for(var i = 0; i < tickets.length; i++) {
+        scene.getMeshByName('ticket'+i).dispose();
+    }
 }

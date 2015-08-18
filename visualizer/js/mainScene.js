@@ -104,29 +104,35 @@ function displayVid(vidSrc, vidType, callback, idx) {
 }
 
 /*
- * Assumes the viz source file contains a run scene function and that it loads whatever
- * other scripts it needs.
+ * Assumes the viz source file contains runScene and clearScene functions and that it loads
+ * whatever other scripts it needs.
  */
+var scripts = {};
 function displayViz(vizSrc, duration, callback, idx) {
-    var head = document.getElementsByTagName("head")[0];
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = vizSrc;
-    head.appendChild(script);
+    if(!scripts[vizSrc]) {
+        var head = document.getElementsByTagName("head")[0];
+        var script = document.createElement("script");
 
-    var body = document.getElementsByTagName("body")[0];
-    var newCanvas = document.createElement("canvas");
+        script.type = "text/javascript";
+        script.src = vizSrc;
+        head.appendChild(script);
 
-    script.onload = function() {
+        scripts[vizSrc] = true;
+
+        script.onload = function() {
+            runScene();
+            window.setTimeout(function() {
+                clearScene();
+                callback(idx);
+            }, duration);
+        };
+    }
+    else {
         runScene();
-
         window.setTimeout(function() {
-            var canvas = document.getElementById("renderCanvas");
-            body.removeChild(canvas);
-            newCanvas.id = "renderCanvas";
-            body.appendChild(newCanvas);
-
+            clearScene();
             callback(idx);
         }, duration);
-    };
+    }
+
 }
