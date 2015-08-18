@@ -1,7 +1,6 @@
 function runPlaylist(playlist) {
     // Process playlist
     function processPlaylist(item) {
-        console.log("Here " + item);
         var curItem = item;
 
         if (curItem >= playlist.length) {
@@ -22,6 +21,23 @@ function runPlaylist(playlist) {
     processPlaylist(0);
 }
 
+function findTransitionEvent() {
+    var t;
+    var elem = document.createElement("fake");
+    var transitions = {
+        'transition':'transitionend',
+        'OTransition':'oTransitionEnd',
+        'MozTransition':'transitionend',
+        'WebkitTransition':'webkitTransitionEnd'
+    };
+
+    for(t in transitions) {
+        if(elem.style[t] !== undefined) {
+            return transitions[t];
+        }
+    }
+}
+
 function displayImg(imgSrc, duration, callback, idx) {
     var div = document.getElementById("myDiv");
     var img = new Image();
@@ -29,12 +45,20 @@ function displayImg(imgSrc, duration, callback, idx) {
     img.src = window.location.href + imgSrc;
     img.style.width = "100%";
     img.style.height = "100%";
+    img.style.opacity = "1";
+    img.style.transition = "opacity 0.75s ease";
+
+    var transitionEvent = findTransitionEvent();
+    img.addEventListener(transitionEvent, function() {;
+        div.removeChild(img);
+        callback(idx);
+    });
 
     img.onload = function() {
         div.appendChild(img);
         window.setTimeout(function() {
-            div.removeChild(img);
-            callback(idx);
+            getComputedStyle(img).display;
+            img.style.opacity = 0;
         }, duration);
     };
 }
@@ -46,18 +70,24 @@ function displayVid(vidSrc, vidType, callback, idx) {
 
     vid.id = "myVid";
     vid.autoplay = "autoplay";
+    vid.style.opacity = "1";
+    vid.style.transition = "opacity 0.75s ease";
+
     source.src = window.location.href + vidSrc;
     source.type = vidType;
-
-    //vid.width =
-    //vid.height =
 
     vid.appendChild(source);
     div.appendChild(vid);
 
-    vid.onended = function() {
+    var transitionEvent = findTransitionEvent();
+    vid.addEventListener(transitionEvent, function() {
         div.removeChild(vid);
         callback(idx);
+    });
+
+    vid.onended = function() {
+        getComputedStyle(vid).display;
+        vid.style.opacity = 0;
     };
 }
 
