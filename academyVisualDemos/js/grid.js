@@ -13,7 +13,7 @@ var createScene = function() {
     scene.activeCamera.attachControl(canvas);
 
     // Create light
-    var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(-1, -2, -1), scene);
+    var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(-1, -5, -2), scene);
     light.position = new BABYLON.Vector3(20, 40, 20);
     light.intensity = 0.65;
 
@@ -53,10 +53,11 @@ var minZ = -groundHeight/2 + 20;
 var maxZ = groundHeight/2 - ticketHeight/2;
 
 var grid = [];
+var border = 0.4;
 
-for(var curX = minX; curX <= maxX; curX += ticketWidth) {
-    for(var curZ = minZ; curZ <= maxZ; curZ += ticketHeight) {
-        grid.push(new BABYLON.Vector3(curX, 1, curZ));
+for(var curX = minX; curX <= maxX; curX += ticketWidth + border) {
+    for(var curZ = minZ; curZ <= maxZ; curZ += ticketHeight + border) {
+        grid.push(new BABYLON.Vector3(curX, 2, curZ));
     }
 }
 
