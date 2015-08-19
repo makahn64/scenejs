@@ -52,9 +52,6 @@ var maxX = groundWidth/2 - ticketWidth/2;
 var minZ = -groundHeight/2 + 20;
 var maxZ = groundHeight/2 - ticketHeight/2;
 
-var numTickets = (Math.floor(maxZ - minZ) / ticketHeight) * (Math.floor(maxX - minX) / ticketWidth);
-console.log(numTickets);
-
 var grid = [];
 
 for(var curX = minX; curX <= maxX; curX += ticketWidth) {
@@ -63,7 +60,7 @@ for(var curX = minX; curX <= maxX; curX += ticketWidth) {
     }
 }
 
-
+var numTickets = grid.length;
 var tickets = [];
 
 function getRandStartPos() {
