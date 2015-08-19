@@ -127,6 +127,101 @@ function moveCameraAlpha(alpha, time, scene) {
     return animation;
 }
 
+function zoomAround(scene) {
+    var camera = scene.activeCamera;
+    var start = camera.fov;
+
+    var animation = new BABYLON.Animation("zoom", "fov", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: start});
+    keys.push({frame: 90, value: 0.3});
+    keys.push({frame: 210, value: 0.5});
+    keys.push({frame: 350, value: 0.2});
+    keys.push({frame: 480, value: 0.4});
+    keys.push({frame: 550, value: 0.5});
+    keys.push({frame: 640, value: 0.3});
+    keys.push({frame: 800, value: 0.6});
+    keys.push({frame: 890, value: 0.2});
+    keys.push({frame: 1000, value: start});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.BackEase(0.5);
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 1000, true);
+
+    return animation;
+}
+
+function moveCameraBetaAround(scene) {
+    var camera = scene.activeCamera;
+    var start = camera.beta;
+
+    var animation = new BABYLON.Animation("moveCameraBeta", "beta", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: start});
+    keys.push({frame: 90, value: 1});
+    keys.push({frame: 210, value: 0.75});
+    keys.push({frame: 350, value: 1.3});
+    keys.push({frame: 480, value: 0.6});
+    keys.push({frame: 550, value: 0.2});
+    keys.push({frame: 640, value: 0.1});
+    keys.push({frame: 800, value: 0.8});
+    keys.push({frame: 890, value: 0.65});
+    keys.push({frame: 1000, value: start});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 1000, true);
+
+    return animation;
+}
+
+function moveCameraAlphaAround(scene) {
+    var camera = scene.activeCamera;
+    var start = camera.alpha;
+
+    var animation = new BABYLON.Animation("moveCameraAlpha", "alpha", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: start});
+    keys.push({frame: 90, value: -2.3});
+    keys.push({frame: 210, value: -2});
+    keys.push({frame: 350, value: -1});
+    keys.push({frame: 480, value: -0.6});
+    keys.push({frame: 550, value: -1.2});
+    keys.push({frame: 640, value: -2.3});
+    keys.push({frame: 800, value: -3});
+    keys.push({frame: 890, value: -2});
+    keys.push({frame: 1000, value: start});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.CubicEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, 1000, true);
+
+    return animation;
+}
+
+
 function waitForAnimations(animations, callback) {
     var testAnimations = setInterval(function() {
         var allStopped = true;
