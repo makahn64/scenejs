@@ -68,6 +68,8 @@ function getRandStartPos() {
     return new BABYLON.Vector3(-150 + 300 * Math.random(), 125 + 175 * Math.random(), -100 + 200 * Math.random());
 }
 
+var animations = [];
+
 for(var i = 0; i < numTickets; i++) {
     var ticketNum = i % 9 + 1;
     var ticket = BABYLON.Mesh.CreatePlane("ticket" + ticketNum, ticketHeight, scene);
@@ -84,5 +86,15 @@ for(var i = 0; i < numTickets; i++) {
     tickets.push(ticket);
     shadowGenerator.getShadowMap().renderList.push(ticket);
 
-    moveTicketTimed(ticket, grid[i], 1 + 4 * Math.random(), scene);
+    animations.push(moveTicketTimed(ticket, grid[i], 1 + 4 * Math.random(), scene));
+}
+
+waitForAnimations(animations, cameraFun);
+
+function cameraFun() {
+    animations = [];
+
+    animations.push(moveCameraBeta(0.8, 2, scene));
+    animations.push(moveCameraAlpha(-Math.PI / 1.5, 2.5, scene));
+    animations.push(zoom(0.25, 3, scene));
 }
