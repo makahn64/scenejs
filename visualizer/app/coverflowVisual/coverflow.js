@@ -72,7 +72,6 @@ function runScene(imgData) {
     var zInc = 30;
 
     for(var i = 0; i < numTickets; i++) {
-        var ticketNum = i + 1;
         var ticket = BABYLON.Mesh.CreatePlane("ticket"+i, ticketHeight, scene);
         ticket.scaling.x = 1.15;
         ticket.position = new BABYLON.Vector3(curPos.x, curPos.y, curPos.z);
@@ -83,6 +82,8 @@ function runScene(imgData) {
         var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
         ticketMat.backFaceCulling = false;
         ticketMat.emissiveTexture = new BABYLON.Texture(origin + ticketPhotos[i], scene);
+        ticketMat.emissiveTexture.vOffset = 0.4;
+        ticketMat.emissiveTexture.vScale = 0.45;
         ticket.material = ticketMat;
 
         tickets.push(ticket);
