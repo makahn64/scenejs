@@ -157,5 +157,4 @@ function displayViz(vizSrc, duration, callback, idx) {
             callback(idx);
         }, duration);
     }
-
 }

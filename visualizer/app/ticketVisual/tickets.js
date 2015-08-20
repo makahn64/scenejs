@@ -5,6 +5,8 @@ var tickets;
 function runScene() {
     var canvas = document.getElementById("renderCanvas");
 
+    console.log(window.location.pathname);
+
     if(scene == undefined) {
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -21,6 +23,9 @@ function runScene() {
         light.diffuse = new BABYLON.Color3(1, 1, 1);
         light.specular = new BABYLON.Color3(1, 1, 1);
         light.intensity = 0.75;
+
+        var ground = BABYLON.Mesh.CreateGround("ground", 6, 6, 1, scene);
+        ground.diffuseTexture = new BABYLON.Texture('img/academyLogo.png', scene);
 
         engine.runRenderLoop(function () {
             scene.render();
