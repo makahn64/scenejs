@@ -65,7 +65,7 @@ function displayImg(imgSrc, duration, callback, idx) {
 
     img.src = window.location.href + imgSrc;
     img.style.opacity = "0";
-    img.style.transition = "opacity 0.75s ease";
+    img.style.transition = "opacity 1s ease";
 
     var transitionEvent = findTransitionEvent();
     var curTransition = 0;
