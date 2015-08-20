@@ -79,9 +79,12 @@ function applyImgToEarth() {
     imgPlane.id = '';
     imgPlane.name = '';
 
-    moveCameraTargetX(-3, scene);
-    moveCameraBeta(Math.PI / 2, scene);
-    zoomOut(scene);
+    var animations = [];
+    animations.push(moveCameraTargetX(-3, scene));
+    animations.push(moveCameraBeta(Math.PI / 2, scene));
+    animations.push(zoomOut(scene));
+
+    waitForAnimations(animations, addNextPerson);
     rotate = true;
 }
 

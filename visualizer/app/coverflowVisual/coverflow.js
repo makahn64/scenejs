@@ -1,17 +1,16 @@
+var PIC_HOLD_TIME = 5;
+var TRANSITION_TIME = 0.75;
+var ZOOM_IN_FOV = 0.35;
+
 var scene = undefined;
 var engine = undefined;
 var tickets;
 var startFov;
 var running;
 
-var PIC_HOLD_TIME = 5;
-var TRANSITION_TIME = 0.75;
-var ZOOM_IN_FOV = 0.35;
-
 function runScene(imgData) {
     running = true;
 
-    // get ticket images
     var allPhotos = imgData.photos;
     var origin = 'http://aso.appdelegates.net';
     var ticketPhotos = [];
@@ -104,10 +103,10 @@ function runScene(imgData) {
         if(running == false) {
             return;
         }
-        var animations = [];
 
-        // fourth param in zoomOutIn is hold time for image
+        var animations = [];
         animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
+
         if(mainIdx == 0) {
             flowDirection = 1;
         }

@@ -1,0 +1,5 @@
+[{"name":"Bob", "lat":"-32", "long":"121", "imgUrl":"face1.jpg"},
+  {"name":"Joe", "lat":"23", "long":"-121", "imgUrl":"face2.jpg"},
+  {"name":"Jane", "lat":"12", "long":"0", "imgUrl":"face1.jpg"},
+  {"name":"Mary", "lat":"-5", "long":"34", "imgUrl":"face2.jpg"},
+  {"name":"Bill", "lat":"-15", "long":"-8", "imgUrl":"face1.jpg"}]
