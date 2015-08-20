@@ -44,25 +44,26 @@ window.addEventListener("resize", function () {
     engine.resize();
 });
 
-var ticketHeight = 20;
+var ticketHeight = 30;
 var numTickets = 9;
 var tickets = [];
 var mainIdx = 0;
-var curPos = new BABYLON.Vector3(0, ticketHeight/2, -15);
+var curPos = new BABYLON.Vector3(0, ticketHeight/2, -30);
 
-var xInc = 14;
-var zInc = 5.5;
-var yRot = 0.7;
+var xInc = 18;
+var zInc = 6;
+var yRot = 1.25;
 
 // Place tickets initially
 for(var i = 0; i < numTickets; i++) {
     var ticketNum = i + 1;
     var ticket = BABYLON.Mesh.CreatePlane("ticket"+ticketNum, ticketHeight, scene);
     ticket.scaling.x = 0.75;
+    //ticket.setPositionWithLocalVector(new BABYLON.Vector3(curPos.x, curPos.y, curPos.z));
     ticket.position = new BABYLON.Vector3(curPos.x, curPos.y, curPos.z);
 
     if(i != mainIdx) {
-        ticket.rotation.y = 0.7;
+        ticket.rotation.y = yRot;
     }
 
     curPos.x += xInc;
@@ -92,6 +93,7 @@ ticket.material = ticketMat;*/
 var flowDirection = 0;
 
 function coverflow() {
+    debugger;
     if(mainIdx == 0) {
         flowDirection = 1;
     }

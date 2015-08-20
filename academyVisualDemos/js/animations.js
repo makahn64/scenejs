@@ -9,7 +9,7 @@ function moveTicket(ticket, destVector, scene) {
 
     // Attach easing function
     var easingFunc = new BABYLON.SineEase();
-    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEOUT);
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
     animation.setEasingFunction(easingFunc);
 
     ticket.animations.push(animation);
@@ -69,12 +69,66 @@ function zoom(fov, time, scene) {
     animation.setKeys(keys);
 
     // Attach easing function
-    var easingFunc = new BABYLON.BackEase(0.5);
+    var easingFunc = new BABYLON.SineEase();
     easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
     animation.setEasingFunction(easingFunc);
 
     camera.animations.push(animation);
     scene.beginAnimation(camera, 0, totalFrames);
+
+    return animation;
+}
+
+function zoomAndHold(fov, timeZoom, timeHold, scene) {
+    var camera = scene.activeCamera;
+    var fps = 30;
+    var zoomedFrame = fps * timeZoom;
+    var endFrame = zoomedFrame + fps * timeHold;
+
+    var animation = new BABYLON.Animation("zoom", "fov", fps, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: camera.fov});
+    keys.push({frame: zoomedFrame, value: fov});
+    keys.push({frame: endFrame, value: fov});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, endFrame);
+
+    return animation;
+}
+
+function zoomOutIn(outFov, inFov, zoomTime, holdTime, scene) {
+    var camera = scene.activeCamera;
+    var fps = 30;
+    var zoomedFrame = fps * zoomTime;
+    var endFrame = zoomedFrame*2 + fps * holdTime;
+    var startFov = camera.fov;
+
+    var animation = new BABYLON.Animation("zoom", "fov", fps, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: startFov});
+    keys.push({frame: zoomedFrame, value: outFov});
+    keys.push({frame: zoomedFrame*2, value: inFov});
+    keys.push({frame: endFrame, value: inFov});
+    animation.setKeys(keys);
+
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, endFrame);
 
     return animation;
 }
