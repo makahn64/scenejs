@@ -158,8 +158,8 @@ function startScene(vizSrc, imgData, duration, callback, idx) {
     else {
         runScene(imgData);
         window.setTimeout(function() {
-            clearScene();
             callback(idx);
+            clearScene();
         }, duration);
     }
 }
