@@ -131,7 +131,12 @@ function displayVid(vidSrc, vidType, callback, idx) {
  * whatever other scripts it needs.
  */
 var scripts = {};
+
 function displayViz(vizSrc, duration, callback, idx) {
+    angular.element(document.getElementById("renderCanvas")).scope().runVisual(vizSrc, duration, callback, idx);
+}
+
+function startScene(vizSrc, imgData, duration, callback, idx) {
     if(!scripts[vizSrc]) {
         var head = document.getElementsByTagName("head")[0];
         var script = document.createElement("script");
@@ -143,7 +148,7 @@ function displayViz(vizSrc, duration, callback, idx) {
         scripts[vizSrc] = true;
 
         script.onload = function() {
-            runScene();
+            runScene(imgData);
             window.setTimeout(function() {
                 clearScene();
                 callback(idx);
@@ -151,7 +156,7 @@ function displayViz(vizSrc, duration, callback, idx) {
         };
     }
     else {
-        runScene();
+        runScene(imgData);
         window.setTimeout(function() {
             clearScene();
             callback(idx);

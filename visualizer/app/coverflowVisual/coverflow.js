@@ -4,8 +4,18 @@ var tickets;
 var startFov;
 var running;
 
-function runScene() {
+function runScene(imgData) {
     running = true;
+
+    // get ticket images
+    var allPhotos = imgData.photos;
+    var ticketPhotos = [];
+    for (var p = 0; p < allPhotos.length; p++) {
+        if (allPhotos[p].url.indexOf('ticket') != -1) {
+            ticketPhotos.push(allPhotos[p].url);
+        }
+    }
+
     var canvas = document.getElementById("renderCanvas");
 
     if(scene == undefined) {
