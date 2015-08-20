@@ -1,20 +1,37 @@
 var scene = undefined;
 var engine = undefined;
 var tickets;
+var startFov;
+var running;
 
 function runScene() {
+    running = true;
     var canvas = document.getElementById("renderCanvas");
 
     if(scene == undefined) {
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
 
-        scene.clearColor = new BABYLON.Color3(1, 1, 1);
+        scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
-        // Create camera
         var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", -Math.PI/2, Math.PI/2, 50, BABYLON.Vector3.Zero(), scene);
         scene.activeCamera = mainCamera;
+        startFov = mainCamera.fov;
         scene.activeCamera.attachControl(canvas);
+
+        var ground = BABYLON.Mesh.CreateGround("ground", 150, 100, 1, scene);
+        ground.position.y = -15;
+        var groundMat = new BABYLON.StandardMaterial("groundMat", scene);
+        groundMat.ambientColor = new BABYLON.Color3(1, 1, 1);
+        groundMat.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
+        groundMat.reflectionTexture.mirrorPlane = new BABYLON.Plane(0, -1, 0, -15);
+        groundMat.reflectionTexture.renderList = [];
+
+        groundMat.reflectionFresnelParameters = new BABYLON.FresnelParameters();
+        groundMat.reflectionFresnelParameters.power = 0.1;
+        groundMat.reflectionFresnelParameters.bias = 0.2;
+
+        ground.material = groundMat;
 
         engine.runRenderLoop(function () {
             scene.render();
@@ -25,9 +42,12 @@ function runScene() {
         });
     }
 
+    scene.getMaterialByName('groundMat').isVisible = true;
+
+    tickets = [];
+
     var ticketHeight = 30;
     var numTickets = 9;
-    tickets = [];
     var mainIdx = 0;
     var curPos = new BABYLON.Vector3(0, 0, 0);
 
@@ -50,16 +70,19 @@ function runScene() {
         ticket.material = ticketMat;
 
         tickets.push(ticket);
+        scene.getMaterialByName('groundMat').reflectionTexture.renderList.push(ticket);
     }
 
     var flowDirection = 0;
-    var startFov = scene.activeCamera.fov;
 
     function coverflow() {
+        if(running = false) {
+            return;
+        }
         var animations = [];
 
         // third param in zoomOutIn is hold time for image
-        animations.push(zoomOutIn(startFov, 0.35, 1.5, 3, scene));
+        animations.push(zoomOutIn(startFov, 0.35, 0.75, 3, scene));
         if(mainIdx == 0) {
             flowDirection = 1;
         }
@@ -80,7 +103,7 @@ function runScene() {
             if(i == mainIdx) {
                 newPos.z += zInc;
             }
-            animations.push(moveTicket(tickets[i], newPos, scene));
+            animations.push(moveTicketTimed(tickets[i], newPos, 1.5, scene));
         }
 
         mainIdx = mainIdx + flowDirection;
@@ -91,9 +114,13 @@ function runScene() {
 }
 
 function clearScene() {
+    running = false;
     for(var i = 0; i < tickets.length; i++) {
         scene.getMeshByName('ticket'+i).dispose();
     }
+    tickets = [];
+    scene.getMaterialByName('groundMat').reflectionTexture.renderList = [];
+    scene.getMaterialByName('groundMat').isVisible = false;
 }
 
 function zoomOutIn(outFov, inFov, zoomTime, holdTime, scene) {
@@ -124,13 +151,16 @@ function zoomOutIn(outFov, inFov, zoomTime, holdTime, scene) {
     return animation;
 }
 
-function moveTicket(ticket, destVector, scene) {
-    var animation = new BABYLON.Animation("moveTicket", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+function moveTicketTimed(ticket, destVector, time, scene) {
+    var fps = 30;
+    var endFrame = time * fps;
+
+    var animation = new BABYLON.Animation("moveTicket", "position", fps, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
     keys.push({frame: 0, value: ticket.position});
-    keys.push({frame: 90, value: destVector});
+    keys.push({frame: endFrame, value: destVector});
     animation.setKeys(keys);
 
     // Attach easing function
@@ -139,7 +169,7 @@ function moveTicket(ticket, destVector, scene) {
     animation.setEasingFunction(easingFunc);
 
     ticket.animations.push(animation);
-    scene.beginAnimation(ticket, 0, 90);
+    scene.beginAnimation(ticket, 0, endFrame);
 
     return animation;
 }

@@ -11,10 +11,6 @@ var createScene = function() {
     scene.activeCamera = mainCamera;
     scene.activeCamera.attachControl(canvas);
 
-    /*var light = new BABYLON.PointLight("light", new BABYLON.Vector3(0, 20, 0), scene);
-    light.diffuse = new BABYLON.Color3(1, 1, 1);
-    light.specular = new BABYLON.Color3(1, 1, 1);*/
-
     var ground = BABYLON.Mesh.CreateGround("ground", 150, 100, 1, scene);
     ground.position.y = -15;
     var groundMat = new BABYLON.StandardMaterial("groundMat", scene);

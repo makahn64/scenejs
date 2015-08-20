@@ -6,7 +6,7 @@ myApp.factory("mainService", function($http) {
 		return $http.get(playlistUrl);
 	};
 	return service;
-})
+});
 
 myApp.controller("mainController", function($scope, mainService) {
     mainService.getPlaylist(window.location.href + 'playlist.json').then(function(data) {
