@@ -7,8 +7,11 @@ var running;
 function runScene(imgData) {
     running = true;
 
+    console.log(imgData);
+
     // get ticket images
     var allPhotos = imgData.photos;
+    var origin = 'http://aso.appdelegates.net';
     var ticketPhotos = [];
     for (var p = 0; p < allPhotos.length; p++) {
         if (allPhotos[p].url.indexOf('ticket') != -1) {
@@ -62,14 +65,12 @@ function runScene(imgData) {
     }
 
     var ticketHeight = 30;
-    var numTickets = 9;
+    var numTickets = ticketPhotos.length;
     var mainIdx = 0;
     var curPos = new BABYLON.Vector3(0, 0, 0);
-
     var xInc = 35;
     var zInc = 30;
 
-    // Place tickets
     for(var i = 0; i < numTickets; i++) {
         var ticketNum = i + 1;
         var ticket = BABYLON.Mesh.CreatePlane("ticket"+i, ticketHeight, scene);
@@ -81,7 +82,7 @@ function runScene(imgData) {
 
         var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
         ticketMat.backFaceCulling = false;
-        ticketMat.emissiveTexture = new BABYLON.Texture("img/t00" + ticketNum + ".jpg", scene);
+        ticketMat.emissiveTexture = new BABYLON.Texture(origin + ticketPhotos[i], scene);
         ticket.material = ticketMat;
 
         tickets.push(ticket);
@@ -89,7 +90,6 @@ function runScene(imgData) {
     }
 
     var flowDirection = 0;
-
     function coverflow() {
         if(running == false) {
             return;
