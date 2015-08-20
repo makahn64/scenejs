@@ -15,8 +15,9 @@ function addText(name, location) {
         style.position = "absolute";
         style.margin = "auto";
         style["font-weight"] = "bold";
+        style["font-size"] = "70px";
         style.top = "30%";
-        style.left = "35%";
+        style.left = "32%";
         style.transition = "opacity 1s ease";
         myText.id = "myText";
 

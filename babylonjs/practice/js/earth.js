@@ -1,3 +1,5 @@
+var PIC_HOLD_TIME = 3000;
+
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
 
@@ -70,7 +72,7 @@ function addPerson(name, location, imgUrl, lat, long) {
 
     window.setTimeout(function() {
         startPlacement(lat, long, 5/2, scene, applyImgToEarth);
-    }, 2000);
+    }, PIC_HOLD_TIME);
 }
 
 var curIdx = 0;
