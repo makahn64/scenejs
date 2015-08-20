@@ -275,7 +275,6 @@ function moveCameraAlphaAround(scene) {
     return animation;
 }
 
-
 function waitForAnimations(animations, callback) {
     var testAnimations = setInterval(function() {
         var allStopped = true;

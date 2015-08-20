@@ -5,12 +5,29 @@ var createScene = function() {
 
     var scene = new BABYLON.Scene(engine);
 
-    scene.clearColor = new BABYLON.Color3(1, 1, 1);
+    scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
-    // Create camera
     var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", -Math.PI / 2, Math.PI / 2, 50, BABYLON.Vector3.Zero(), scene);
     scene.activeCamera = mainCamera;
     scene.activeCamera.attachControl(canvas);
+
+    /*var light = new BABYLON.PointLight("light", new BABYLON.Vector3(0, 20, 0), scene);
+    light.diffuse = new BABYLON.Color3(1, 1, 1);
+    light.specular = new BABYLON.Color3(1, 1, 1);*/
+
+    var ground = BABYLON.Mesh.CreateGround("ground", 150, 100, 1, scene);
+    ground.position.y = -15;
+    var groundMat = new BABYLON.StandardMaterial("groundMat", scene);
+    groundMat.ambientColor = new BABYLON.Color3(1, 1, 1);
+    groundMat.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
+    groundMat.reflectionTexture.mirrorPlane = new BABYLON.Plane(0, -1, 0, -15);
+    groundMat.reflectionTexture.renderList = [];
+
+    groundMat.reflectionFresnelParameters = new BABYLON.FresnelParameters();
+    groundMat.reflectionFresnelParameters.power = 0.1;
+    groundMat.reflectionFresnelParameters.bias = 0.2;
+
+    ground.material = groundMat;
 
     return scene;
 };
@@ -50,6 +67,7 @@ for(var i = 0; i < numTickets; i++) {
     ticket.material = ticketMat;
 
     tickets.push(ticket);
+    scene.getMaterialByName('groundMat').reflectionTexture.renderList.push(ticket);
 }
 
 // example of cropping with uv scaling/offsets
@@ -71,7 +89,7 @@ function coverflow() {
     var animations = [];
 
     // third param in zoomOutIn is hold time for image
-    animations.push(zoomOutIn(startFov, 0.35, 1.5, 3, scene));
+    animations.push(zoomOutIn(startFov, 0.35, 0.75, 3, scene));
     if(mainIdx == 0) {
         flowDirection = 1;
     }
@@ -92,7 +110,7 @@ function coverflow() {
         if(i == mainIdx) {
             newPos.z += zInc;
         }
-        animations.push(moveTicket(tickets[i], newPos, scene));
+        animations.push(moveTicketTimed(tickets[i], newPos, 1.5, scene));
     }
 
     mainIdx = mainIdx + flowDirection;

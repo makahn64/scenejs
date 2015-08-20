@@ -93,7 +93,6 @@ ticket.material = ticketMat;*/
 var flowDirection = 0;
 
 function coverflow() {
-    debugger;
     if(mainIdx == 0) {
         flowDirection = 1;
     }
