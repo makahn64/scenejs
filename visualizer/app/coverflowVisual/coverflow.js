@@ -42,9 +42,14 @@ function runScene() {
         });
     }
 
-    scene.getMaterialByName('groundMat').isVisible = true;
+    scene.getMeshByName('ground').isVisible = true;
 
-    tickets = [];
+    if(tickets) {
+        tickets.splice(0, tickets.length);
+    }
+    else {
+        tickets = [];
+    }
 
     var ticketHeight = 30;
     var numTickets = 9;
@@ -76,7 +81,7 @@ function runScene() {
     var flowDirection = 0;
 
     function coverflow() {
-        if(running = false) {
+        if(running == false) {
             return;
         }
         var animations = [];
@@ -90,7 +95,7 @@ function runScene() {
             flowDirection = -1;
         }
 
-        for(var i = 0; i < numTickets; i++) {
+        for(var i = 0; i < tickets.length; i++) {
             var newPos = new BABYLON.Vector3(tickets[i].position.x, tickets[i].position.y, tickets[i].position.z);
             newPos.x -= xInc * flowDirection;
 
@@ -118,9 +123,8 @@ function clearScene() {
     for(var i = 0; i < tickets.length; i++) {
         scene.getMeshByName('ticket'+i).dispose();
     }
-    tickets = [];
     scene.getMaterialByName('groundMat').reflectionTexture.renderList = [];
-    scene.getMaterialByName('groundMat').isVisible = false;
+    scene.getMeshByName('ground').isVisible = false;
 }
 
 function zoomOutIn(outFov, inFov, zoomTime, holdTime, scene) {
