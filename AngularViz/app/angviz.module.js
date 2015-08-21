@@ -9,10 +9,9 @@
 
  **********************************/
 
-
 var app = angular.module('angVizApp', [
-    'ngRoute', 'ngAnimate',
-    'ngSanitize', 'ui.event'])
+    'ngRoute', 'ngSanitize',
+    'ngAnimate', 'ui.event'])
 
 
 

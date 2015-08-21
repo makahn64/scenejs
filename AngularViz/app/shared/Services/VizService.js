@@ -1,10 +1,12 @@
 app.factory('vizService',
-    function ($rootScope, $log, $timeout, $document, $q) {
+    function ($rootScope, $log, $timeout, $document) {
         "use strict";
 
         var service = {};
 
         var _loadedScripts = {};
+
+        console.log($rootScope);
 
         service.startViz =  function(vizSrc, imgData, duration, callback) {
 
