@@ -98,7 +98,7 @@ function runScene(imgData) {
         var animations = [];
 
         // third param in zoomOutIn is hold time for image
-        animations.push(zoomOutIn(startFov, 0.35, 0.75, 3, scene));
+        animations.push(zoomOutIn(startFov, 0.45, 0.75, 10, scene));
         if(mainIdx == 0) {
             flowDirection = 1;
         }

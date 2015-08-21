@@ -7,6 +7,7 @@ function runPlaylist(playlist) {
             console.log("Done with playlist");
             return;
         }
+
         if (playlist[curItem].type == "video") {
             displayVid(playlist[curItem].src, "video/mp4", processPlaylist, curItem + 1);
         }
@@ -60,6 +61,7 @@ function purge(elem) {
 }
 
 function displayImg(imgSrc, duration, callback, idx) {
+
     var div = document.getElementById("mediaDiv");
     var img = new Image();
 
