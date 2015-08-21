@@ -1,4 +1,5 @@
 var PIC_HOLD_TIME = 3000;
+var EARTH_RADIUS = 5;
 
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
@@ -15,7 +16,7 @@ var createScene = function () {
     //scene.activeCamera.attachControl(canvas);
 
     // Create earth
-    var earth = BABYLON.Mesh.CreateSphere("earth", 25, 5, scene);
+    var earth = BABYLON.Mesh.CreateSphere("earth", 25, EARTH_RADIUS, scene);
     earth.position = new BABYLON.Vector3(0, 0, 0);
     earth.rotation.x = 0;
     earth.rotation.y = Math.PI;
@@ -37,7 +38,6 @@ var earth = scene.getMeshByName("earth");
 
 scene.beforeRender = function () {
     if (rotate) {
-        //earth.rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
         if(earth.rotation.y > -2 * Math.PI) {
             earth.rotation.y -= 0.0025;
         }
@@ -56,12 +56,10 @@ window.addEventListener("resize", function () {
 });
 
 function addPerson(name, location, imgUrl, lat, long) {
-    // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 0.65, 50, scene);
     imgPlane.scaling.y = -1;
     imgPlane.position = new BABYLON.Vector3(-4.6, 0.2, -4);
 
-    // Define the material for the image plane
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
     imgMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     imgMat.backFaceCulling = false;
@@ -71,7 +69,7 @@ function addPerson(name, location, imgUrl, lat, long) {
     addText(name, location);
 
     window.setTimeout(function() {
-        startPlacement(lat, long, 5/2, scene, applyImgToEarth);
+        startPlacement(lat, long, EARTH_RADIUS/2, scene, applyImgToEarth);
     }, PIC_HOLD_TIME);
 }
 
