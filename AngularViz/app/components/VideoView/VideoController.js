@@ -1,13 +1,17 @@
-app.controller("videoViewController", [
-    '$scope', '$log',
-    function ( $scope, $log ) {
+app.controller("videoViewController",
+    function ( $scope, $log, playlistService ) {
 
         $log.debug("Loading videoViewController");
 
         //userDefaults.setStringForKey('hello', 'Ahoy matey!');
         //$log.debug("RC: "+userDefaults.getStringForKey('hello'));
 
-        $scope.vidSrc = "assets/img/samplevideo.mp4";
+        var item = playlistService.getCurrent();
 
+        $scope.vidSrc = item.src;
+
+        $scope.videoDone = function() {
+            playlistService.completed();
+        }
     }
-]);
+);

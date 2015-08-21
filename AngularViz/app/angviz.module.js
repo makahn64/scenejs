@@ -12,7 +12,7 @@
 
 var app = angular.module('angVizApp', [
     'ngRoute', 'ngAnimate',
-    'ngSanitize'])
+    'ngSanitize', 'ui.event'])
 
 
 

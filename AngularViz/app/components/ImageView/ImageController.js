@@ -1,12 +1,3 @@
-/**
- *
- * Functionality that is shared across entire app should be in here or a service.
- *
- * New > 1.2 Version
- *
- */
-
-
 app.controller("imageViewController",
     function ( $scope, $log, playlistService, $timeout ) {
 
@@ -20,8 +11,6 @@ app.controller("imageViewController",
         $scope.imgSrc = item.src;
 
         $timeout( playlistService.completed, parseInt(item.duration));
-
-
 
     });
 
