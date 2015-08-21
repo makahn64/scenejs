@@ -1,3 +1,7 @@
+var PIC_HOLD_TIME = 5;
+var TRANSITION_TIME = 0.75;
+var ZOOM_IN_FOV = 0.5;
+
 var scene = undefined;
 var engine = undefined;
 var tickets;
@@ -7,9 +11,6 @@ var running;
 function runScene(imgData) {
     running = true;
 
-    console.log(imgData);
-
-    // get ticket images
     var allPhotos = imgData.photos;
     var origin = 'http://aso.appdelegates.net';
     var ticketPhotos = [];
@@ -45,6 +46,13 @@ function runScene(imgData) {
         groundMat.reflectionFresnelParameters.bias = 0.2;
 
         ground.material = groundMat;
+
+        var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
+            edge_blur: 1.0,
+            chromatic_aberration: 1.0,
+            distortion: 0,
+            dof_focus_distance: 50
+        }, scene, 1.0, mainCamera);
 
         engine.runRenderLoop(function () {
             scene.render();
@@ -95,10 +103,10 @@ function runScene(imgData) {
         if(running == false) {
             return;
         }
-        var animations = [];
 
-        // third param in zoomOutIn is hold time for image
-        animations.push(zoomOutIn(startFov, 0.45, 0.75, 10, scene));
+        var animations = [];
+        animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
+
         if(mainIdx == 0) {
             flowDirection = 1;
         }
@@ -119,7 +127,7 @@ function runScene(imgData) {
             if(i == mainIdx) {
                 newPos.z += zInc;
             }
-            animations.push(moveTicketTimed(tickets[i], newPos, 1.5, scene));
+            animations.push(moveTicketTimed(tickets[i], newPos, 2*TRANSITION_TIME, scene));
         }
 
         mainIdx = mainIdx + flowDirection;

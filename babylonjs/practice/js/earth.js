@@ -1,3 +1,5 @@
+var PIC_HOLD_TIME = 3000;
+
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
 
@@ -22,9 +24,6 @@ var createScene = function () {
     var earthMat = new BABYLON.StandardMaterial("earthMat", scene);
     earthMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     earthMat.diffuseTexture = new BABYLON.Texture("textures/earthTop1.jpeg", scene);
-    //earthMat.emissiveColor = new BABYLON.Color3(0, 0.7, 1);
-    //earthMat.diffuseTexture = new BABYLON.Texture("textures/earthBW.gif", scene);
-    //earthMat.diffuseTexture.hasAlpha = true;
     earth.material = earthMat;
 
     return scene;
@@ -56,14 +55,7 @@ window.addEventListener("resize", function () {
     engine.resize();
 });
 
-function addPerson() {
-    // Get input
-    var name = document.getElementById("name").value;
-    var location = document.getElementById("location").value;
-    var imgNum = document.getElementById("imgNum").value;
-    var lat = parseFloat(document.getElementById("lat").value);
-    var long = parseFloat(document.getElementById("long").value);
-
+function addPerson(name, location, imgUrl, lat, long) {
     // Create image plane
     var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 0.65, 50, scene);
     imgPlane.scaling.y = -1;
@@ -73,12 +65,34 @@ function addPerson() {
     var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
     imgMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     imgMat.backFaceCulling = false;
-    imgMat.diffuseTexture = new BABYLON.Texture("img/face" + imgNum + ".jpg", scene);
+    imgMat.diffuseTexture = new BABYLON.Texture(window.location.origin+'/scenejs/babylonjs/practice/img/'+imgUrl, scene);
     imgPlane.material = imgMat;
 
     addText(name, location);
 
     window.setTimeout(function() {
         startPlacement(lat, long, 5/2, scene, applyImgToEarth);
-    }, 2000);
+    }, PIC_HOLD_TIME);
 }
+
+var curIdx = 0;
+var data;
+
+function addPeople(peopleData) {
+    data = peopleData;
+    if (curIdx < peopleData.length) {
+        addPerson(peopleData[curIdx].name, "temp", peopleData[curIdx].imgUrl, peopleData[curIdx].lat, peopleData[curIdx].long);
+    }
+    curIdx++;
+}
+
+function addNextPerson() {
+    if (curIdx < data.length) {
+        addPerson(data[curIdx].name, "temp", data[curIdx].imgUrl, data[curIdx].lat, data[curIdx].long);
+    }
+    curIdx++;
+}
+
+window.onload = function() {
+    angular.element(document.getElementById("renderCanvas")).scope().getPeople();
+};

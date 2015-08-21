@@ -1,0 +1,21 @@
+{
+  "name": "visualizer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/makahn64/scenejs",
+  "authors": [
+    "atorres <torres.lyssa@gmail.com>"
+  ],
+  "description": "three mode visualizer",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "babylonjs": "~2.0.0"
+  }
+}
