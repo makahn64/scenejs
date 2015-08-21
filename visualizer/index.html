@@ -3,14 +3,20 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Three Mode Visualizer</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- 3rd party frameworks -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="js/myApp.js"></script>
     <script src="http://cdn.babylonjs.com/2-1/babylon.js"></script>
+
+    <!-- my code -->
+    <script src="js/myApp.js"></script>
     <script src="js/mainScene.js"></script>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
+
 <body ng-controller="mainController">
-<div id="mediaDiv"></div>
-<canvas id="renderCanvas"></canvas>
+    <div id="mediaDiv"></div>
+    <canvas id="renderCanvas"></canvas>
 </body>
 </html>

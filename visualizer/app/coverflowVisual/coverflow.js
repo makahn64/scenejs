@@ -1,6 +1,6 @@
 var PIC_HOLD_TIME = 5;
 var TRANSITION_TIME = 0.75;
-var ZOOM_IN_FOV = 0.35;
+var ZOOM_IN_FOV = 0.5;
 
 var scene = undefined;
 var engine = undefined;

@@ -1,20 +1,20 @@
 function runPlaylist(playlist) {
 
     function processPlaylist(item) {
-        var curItem = item % 3;
+        var curItem = item % playlist.length;
 
-        if (curItem >= playlist.length) {
-            console.log("Done with playlist");
-            return;
-        }
-        if (playlist[curItem].type == "video") {
-            displayVid(playlist[curItem].src, "video/mp4", processPlaylist, curItem + 1);
-        }
-        if (playlist[curItem].type == "image") {
-            displayImg(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
-        }
-        if (playlist[curItem].type == "viz") {
-            displayViz(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
+        switch(playlist[curItem].type) {
+            case "video":
+                displayVid(playlist[curItem].src, "video/mp4", processPlaylist, curItem + 1);
+                break;
+            case "image":
+                displayImg(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
+                break;
+            case "viz":
+                displayViz(playlist[curItem].src, playlist[curItem].duration, processPlaylist, curItem + 1);
+                break;
+            default:
+                break;
         }
     }
 
