@@ -1,12 +1,3 @@
-/**
- *
- * Functionality that is shared across entire app should be in here or a service.
- *
- * New > 1.2 Version
- *
- */
-
-
 app.controller("vizViewController", [
     '$scope', '$log',
     function ( $scope, $log ) {
