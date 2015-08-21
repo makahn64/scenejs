@@ -1,0 +1,1 @@
+[{"type":"image", "src":"assets/img/elephant.jpg", "duration":"3000"}, {"type":"video", "src":"img/samplevideo.mp4"}, {"type":"viz", "src":"app/coverflowVisual/coverflow.js", "duration":"30000"}]

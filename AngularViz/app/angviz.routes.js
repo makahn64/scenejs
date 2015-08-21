@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
             controller: 'videoViewController'
         })
 
-        .when('/jsviz', {
+        .when('/viz', {
             templateUrl: 'app/components/VizView/vizview.partial.html',
             controller: 'vizViewController'
         })

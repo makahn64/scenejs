@@ -7,9 +7,7 @@
  */
 
 
-app.controller("rootController", [
-    '$scope', '$log',
-    function ( $scope, $log ) {
+app.controller("rootController", function ($scope, $log, playlistService, $location, $timeout) {
 
         $log.debug("Loading rootController");
 
@@ -17,8 +15,19 @@ app.controller("rootController", [
         //$log.debug("RC: "+userDefaults.getStringForKey('hello'));
 
 
+        $scope.$on("PLAYLIST_LOADED", function () {
+
+            $log.info("Playlist loaded, whoohoo!");
+            playlistService.sequence();
+
+        })
+
+        $scope.$on("BAD_PLAYLIST", function () {
+
+            $log.error("Playlist is BAD, crap!");
+
+        })
 
 
-
-    }]);
+    });
 
