@@ -120,7 +120,8 @@ function zoomIn(scene) {
     animation.setKeys(keys);
 
     // Attach easing function
-    var easingFunc = new BABYLON.BounceEase(1, 5);
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
     animation.setEasingFunction(easingFunc);
 
     camera.animations.push(animation);

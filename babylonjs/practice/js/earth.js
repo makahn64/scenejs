@@ -79,14 +79,14 @@ var data;
 function addPeople(peopleData) {
     data = peopleData;
     if (curIdx < peopleData.length) {
-        addPerson(peopleData[curIdx].name, "temp", peopleData[curIdx].imgUrl, peopleData[curIdx].lat, peopleData[curIdx].long);
+        addPerson(peopleData[curIdx].name, peopleData[curIdx].loc, peopleData[curIdx].imgUrl, peopleData[curIdx].lat, peopleData[curIdx].long);
     }
     curIdx++;
 }
 
 function addNextPerson() {
     if (curIdx < data.length) {
-        addPerson(data[curIdx].name, "temp", data[curIdx].imgUrl, data[curIdx].lat, data[curIdx].long);
+        addPerson(data[curIdx].name, data[curIdx].loc, data[curIdx].imgUrl, data[curIdx].lat, data[curIdx].long);
     }
     curIdx++;
 }

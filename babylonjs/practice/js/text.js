@@ -14,10 +14,10 @@ function addText(name, location) {
         style.opacity = "0";
         style.position = "absolute";
         style.margin = "auto";
-        style["font-weight"] = "bold";
         style["font-size"] = "70px";
+        style["font-weight"] = "300";
         style.top = "30%";
-        style.left = "32%";
+        style.left = "31%";
         style.transition = "opacity 1s ease";
         myText.id = "myText";
 

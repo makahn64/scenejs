@@ -1,5 +1,5 @@
-[{"name":"Bob", "lat":"-32", "long":"121", "imgUrl":"face1.jpg"},
-  {"name":"Joe", "lat":"23", "long":"-121", "imgUrl":"face2.jpg"},
-  {"name":"Jane", "lat":"12", "long":"0", "imgUrl":"face1.jpg"},
-  {"name":"Mary", "lat":"-5", "long":"34", "imgUrl":"face2.jpg"},
-  {"name":"Bill", "lat":"-15", "long":"-8", "imgUrl":"face1.jpg"}]
+[{"name":"Bob", "lat":"37.7", "long":"-122.4", "loc":"San Francisco", "imgUrl":"face1.jpg"},
+  {"name":"Joe", "lat":"40.7", "long":"-74", "loc":"New York", "imgUrl":"face2.jpg"},
+  {"name":"Jane", "lat":"-33.8", "long":"151.2", "loc":"Sydney", "imgUrl":"face1.jpg"},
+  {"name":"Mary", "lat":"39.9", "long":"116.4", "loc":"Beijing", "imgUrl":"face2.jpg"},
+  {"name":"Bill", "lat":"51.5", "long":"-0.12", "loc":"London", "imgUrl":"face1.jpg"}]
