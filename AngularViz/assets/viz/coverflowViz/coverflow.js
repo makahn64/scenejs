@@ -23,6 +23,12 @@ function runScene(imgData) {
     var canvas = document.getElementById("renderCanvas");
 
     if(scene == undefined) {
+        // Fixes issue with BabylonJS giving error "prepare is not a function".
+        // Has something to do with another script modifying the Array.prototype.
+        for(var i in Array.prototype) {
+            Array.prototype[i].prepare = function(){};
+        }
+
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
 
@@ -91,7 +97,7 @@ function runScene(imgData) {
         ticketMat.backFaceCulling = false;
         ticketMat.emissiveTexture = new BABYLON.Texture(origin + ticketPhotos[i], scene);
         ticketMat.emissiveTexture.vOffset = 0.4;
-        ticketMat.emissiveTexture.vScale = 0.45;
+        ticketMat.emissiveTexture.vScale = 0.35;
         ticket.material = ticketMat;
 
         tickets.push(ticket);

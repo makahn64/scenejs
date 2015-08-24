@@ -8,13 +8,9 @@ app.factory('vizService',
 
         service.startViz =  function(vizSrc, imgData, duration, callback) {
 
-            // Fixes issue with BabylonJS giving error "prepare is not a function".
-            // Has something to do with another script modifying the Array.prototype.
-            for(var i in Array.prototype) {
-                Array.prototype[i].prepare = function(){};
-            }
-
             if(!_loadedScripts[vizSrc]) {
+
+                $log.info("Loading  " + vizSrc);
                 var script = $document[0].createElement("script");
                 script.src = vizSrc;
 
@@ -25,6 +21,7 @@ app.factory('vizService',
                     runScene(imgData);
 
                     $timeout(function() {
+                        $log.info("clearing scene");
                         clearScene();
                         callback();
                     }, duration);
@@ -33,9 +30,11 @@ app.factory('vizService',
 
 
             else {
+                $log.info("Script "+vizSrc+" already loaded, running scene");
                 runScene(imgData);
 
                 $timeout(function() {
+                    $log.info("clearing scene");
                     clearScene();
                     callback();
                 }, duration);

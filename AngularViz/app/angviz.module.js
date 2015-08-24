@@ -23,7 +23,7 @@ app.config(function () {
 
 
 app.run(['$rootScope', '$location', '$log', 'playlistService',
-        function ($rootScope, $location,  $log, playlistService) {
+    function ($rootScope, $location,  $log, playlistService) {
 
         $log.info("app.RUNning");
 
@@ -34,8 +34,8 @@ app.run(['$rootScope', '$location', '$log', 'playlistService',
 
         playlistService.init();
 
-
-    }]);
+    }
+]);
 
 
 //Patch that monkey
