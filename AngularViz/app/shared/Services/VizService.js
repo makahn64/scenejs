@@ -6,9 +6,13 @@ app.factory('vizService',
 
         var _loadedScripts = {};
 
-        console.log($rootScope);
-
         service.startViz =  function(vizSrc, imgData, duration, callback) {
+
+            // Fixes issue with BabylonJS giving error "prepare is not a function".
+            // Has something to do with another script modifying the Array.prototype.
+            for(var i in Array.prototype) {
+                Array.prototype[i].prepare = function(){};
+            }
 
             if(!_loadedScripts[vizSrc]) {
                 var script = $document[0].createElement("script");
