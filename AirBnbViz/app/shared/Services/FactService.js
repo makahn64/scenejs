@@ -47,8 +47,8 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
         var nextFact = service.getCurrent();
         var width = 600;
         var height = 300;
-        var posx = Math.random() * ($window.innerWidth - (width+100)) + 75;
-        var posy = Math.random() * ($window.innerHeight - (height+100)) + 75;
+        var posx = Math.random() * ($window.innerWidth - (width+150)) + 75;
+        var posy = Math.random() * ($window.innerHeight - (height+150)) + 75;
 
         $timeout(function() {
             $rootScope.factStyle = {
