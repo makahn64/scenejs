@@ -4,6 +4,10 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
 
     var _index = 0;
     var _holdTime = 5000;
+    var _colors = ["#00d1c1", "#ffb400", "#8ce071", "#7b0051"];
+    var _colorIdx = 0;
+
+    var _stop = false;
 
     service.facts = [];
 
@@ -43,18 +47,28 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
         return _index;
     };
 
+    service.getColor = function() {
+        var color = _colors[_colorIdx];
+
+        _colorIdx++;
+        _colorIdx = _colorIdx % _colors.length;
+
+        return color;
+    };
+
     service.displayNext = function() {
         var nextFact = service.getCurrent();
         var width = 600;
         var height = 300;
         var posx = Math.random() * ($window.innerWidth - (width+150)) + 75;
         var posy = Math.random() * ($window.innerHeight - (height+150)) + 75;
+        var bgColor = service.getColor();
 
         $timeout(function() {
             $rootScope.factStyle = {
                 'top': posy + 'px', 'left': posx + 'px',
                 'width': width + 'px', 'height': height + 'px',
-                'background-color': '#00d1c1', 'color':'#ffffff'
+                'background-color': bgColor, 'color':'#ffffff'
             };
             $rootScope.curFact = nextFact;
             $rootScope.showFact = true;
@@ -72,10 +86,16 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
             $rootScope.showFact = false;
         });
 
-        $timeout(function() {
-            service.displayNext();
-        }, 700);
-    }
+        if(!_stop) {
+            $timeout(function () {
+                service.displayNext();
+            }, 700);
+        }
+    };
+
+    service.stop = function() {
+        _stop = true;
+    };
 
     return service;
 });

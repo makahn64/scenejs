@@ -23,7 +23,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Font -->
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 </head>
 
 <body ng-controller="mainController">
@@ -31,7 +31,7 @@
     <canvas id="renderCanvas"></canvas>
 
     <div id="card" ng-show="showCard" class="fade">
-        <h1>{{"Hello "+curPerson.name + "!"}}</h1>
+        <h1>{{curPerson.greeting + " " + curPerson.name + "!"}}</h1>
         <p>{{curPerson.loc}}</p>
     </div>
 

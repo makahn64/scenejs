@@ -20,8 +20,7 @@ html, body {
     height: 300px;
     top:0;
     bottom:0;
-    left:0;
-    right:0;
+    left:33%;
     margin:auto;
     color: #565a5c;
 }
@@ -31,7 +30,7 @@ html, body {
 }
 
 #card p {
-    font-size: x-large;
+    font-size: 200%;
 }
 
 #fact {
