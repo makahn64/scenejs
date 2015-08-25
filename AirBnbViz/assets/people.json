@@ -1,10 +1,10 @@
 [{"name":"President Obama", "lat":"38.9", "long":"-77.03", "loc":"Washington D.C., USA", "imgUrl":"obama.png", "greeting":"Hello"},
   {"name":"Prime Minister Rajoy", "lat":"40.4", "long":"-3.7", "loc":"Madrid, Spain", "imgUrl":"rajoy.jpg", "greeting":"Hola"},
   {"name":"Prime Minister Valls", "lat":"48.86", "long":"2.35", "loc":"Paris, France", "imgUrl":"valls.jpg", "greeting":"Bonjour"},
-  {"name":"President Gauck", "lat":"52.52", "long":"13.4", "loc":"Berlin, Germany", "imgUrl":"gauck.jpg", "greeting":"Willkommen"},
+  {"name":"Chancellor Merkel", "lat":"52.52", "long":"13.4", "loc":"Berlin, Germany", "imgUrl":"merkel.jpg", "greeting":"Willkommen"},
   {"name":"President Nieto", "lat":"19.43", "long":"-99.13", "loc":"Mexico City, Mexico", "imgUrl":"nieto.jpg", "greeting":"Hola"},
   {"name":"Prime Minister Harper", "lat":"45.42", "long":"-75.7", "loc":"Ottawa, Canada", "imgUrl":"harper.jpg", "greeting":"Hi"},
-  {"name":"Prime Minister Cameron", "lat":"51.51", "long":"-0.128", "loc":"London, UK", "imgUrl":"cameron.jpg", "greeting":"Hello"},
+  {"name":"Prime Minister Cameron", "lat":"51.6", "long":"-0.128", "loc":"London, UK", "imgUrl":"cameron.jpg", "greeting":"Hello"},
   {"name":"Prime Minister Abe", "lat":"35.69", "long":"139.69", "loc":"Tokyo, Japan", "imgUrl":"abe.jpg", "greeting":"こんにちは"},
   {"name":"Prime Minister Abbott", "lat":"-35.28", "long":"149.13", "loc":"Canberra, Australia", "imgUrl":"abbott.jpg", "greeting":"G'day"},
   {"name":"President Rousseff", "lat":"-15.79", "long":"-47.88", "loc":"Brasília, Brazil", "imgUrl":"rousseff.jpg", "greeting":"Olá"}]
