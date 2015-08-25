@@ -53,7 +53,8 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
         $timeout(function() {
             $rootScope.factStyle = {
                 'top': posy + 'px', 'left': posx + 'px',
-                'width': width + 'px', 'height': height + 'px'
+                'width': width + 'px', 'height': height + 'px',
+                'background-color': '#00d1c1', 'color':'#ffffff'
             };
             $rootScope.curFact = nextFact;
             $rootScope.showFact = true;
@@ -73,7 +74,7 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
 
         $timeout(function() {
             service.displayNext();
-        }, 1500);
+        }, 700);
     }
 
     return service;

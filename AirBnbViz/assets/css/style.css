@@ -16,28 +16,27 @@ html, body {
 #card {
     z-index: 1;
     position: fixed;
-    width: 700px;
-    height: 500px;
+    width: 400px;
+    height: 300px;
     top:0;
     bottom:0;
     left:0;
     right:0;
     margin:auto;
-    border: 2px solid #fd5c63;
-    border-radius: 25px;
-    padding: 15px 20px 40px 550px;
+    color: #565a5c;
+}
+
+#card h1 {
+    font-size: 200%;
 }
 
 #card p {
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 #fact {
     z-index: 1;
     position: fixed;
-    background-color: #ffffff;
-    border: 2px solid #fd5c63;
-    border-radius: 25px;
     padding: 15px 15px 40px 15px;
 }
 
@@ -54,12 +53,12 @@ html, body {
     opacity: 1;
 }
 
-/*.fade.ng-hide-remove {
-    transition: all linear 1s;
-} */
+.fade.ng-hide-remove {
+    transition: all linear 0.5s;
+}
 
 .fade.ng-hide-add {
-    transition: all linear 1s;
+    transition: all linear 0.5s;
 }
 
 .fade.ng-hide {

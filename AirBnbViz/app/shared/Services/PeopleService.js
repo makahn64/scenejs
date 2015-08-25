@@ -57,7 +57,7 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
     service.addPerson = function(person) {
         var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 0.65, 50, scene);
         imgPlane.scaling.y = -1;
-        imgPlane.position = new BABYLON.Vector3(-3.95, 0, -4);
+        imgPlane.position = new BABYLON.Vector3(-4.2, 0, -4);
 
         var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
         imgMat.emissiveColor = new BABYLON.Color3(1, 1, 1);

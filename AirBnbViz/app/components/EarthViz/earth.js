@@ -24,6 +24,13 @@ var createScene = function () {
     var earthMat = new BABYLON.StandardMaterial("earthMat", scene);
     earthMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
     earthMat.diffuseTexture = new BABYLON.Texture("assets/img/earthSimplePink.png", scene);
+
+    earthMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
+    earthMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(0, 0, 0);
+    earthMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.White();
+    earthMat.emissiveFresnelParameters.bias = 0.8;
+    earthMat.emissiveFresnelParameters.power = 0.4;
+
     earth.material = earthMat;
 
     return scene;
