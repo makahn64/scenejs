@@ -73,26 +73,30 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
 
     service.startPlacement = function(lat, long, radius, scene, callback) {
         var earth = scene.getMeshByName("earth");
+
         $rootScope.showCard = false;
-        rotateEarth(false);
 
-        var relLat = Math.PI / 2 - lat * Math.PI / 180;
-        var relLong = long * Math.PI / 180 - Math.PI / 2;
-        var imgY = radius * Math.cos(relLat);
-        var imgZ = -radius * Math.sin(relLat);
-        var imgTilt = Math.PI / 2 - relLat;
+        $timeout(function() {
+            rotateEarth(false);
 
-        var animations = [];
+            var relLat = Math.PI / 2 - lat * Math.PI / 180;
+            var relLong = long * Math.PI / 180 - Math.PI / 2;
+            var imgY = radius * Math.cos(relLat);
+            var imgZ = -radius * Math.sin(relLat);
+            var imgTilt = Math.PI / 2 - relLat;
 
-        animations.push(spinEarthY(relLong, scene));
-        animations.push(moveCameraTargetX(0, scene));
-        animations.push(moveCameraBeta(relLat, scene));
-        animations.push(moveImg(new BABYLON.Vector3(0, imgY, imgZ - 0.01), scene));
-        animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
-        animations.push(rotateImgX(imgTilt, scene));
-        animations.push(zoomIn(scene));
+            var animations = [];
 
-        waitForAnimations(animations, callback);
+            animations.push(spinEarthY(relLong, scene));
+            animations.push(moveCameraTargetX(0, scene));
+            animations.push(moveCameraBeta(relLat, scene));
+            animations.push(moveImg(new BABYLON.Vector3(0, imgY, imgZ - 0.01), scene));
+            animations.push(scaleImg(new BABYLON.Vector3(0.15, -0.15, 0), scene)); // y scale must be neg. for disc
+            animations.push(rotateImgX(imgTilt, scene));
+            animations.push(zoomIn(scene));
+
+            waitForAnimations(animations, callback);
+        }, 1200);
     };
 
     service.finishPlacement = function() {
