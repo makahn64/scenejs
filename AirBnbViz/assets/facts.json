@@ -1,3 +1,5 @@
-[{"title":"title 1", "content":"content 1"},
-  {"title":"title 2", "content":"content 2"},
-  {"title":"title 3", "content":"content 3"}]
+[{"title":"Savais-tu?", "content":"France is the most visited country in the world."},
+  {"title":"Did you know?", "content":"There are 61,000 people in the air over the United States at any given moment."},
+  {"title":"هل تعلم؟", "content":"Saudi Arabia is the only country in the world where there are no rivers."},
+  {"title":"知ってますか？", "content":"Raised floors in Japanese houses indicate when to take off your shoes."},
+  {"title":"Lo sapevate?", "content":"All the money that is tossed into Rome's Trevi Fountain (about 3,000 euros each day) is collected and donated to charitable organizations."}]

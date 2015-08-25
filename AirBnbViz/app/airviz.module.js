@@ -6,5 +6,5 @@ app.config(function() {
 
 app.run(function(peopleService, factService) {
     factService.getFacts("assets/facts.json");
-    peopleService.getPeople("assets/people.json");
+    peopleService.getPeople("assets/people3.json");
 });
