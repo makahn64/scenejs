@@ -67,14 +67,18 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
     };
 
     service.addText = function(person) {
-        $rootScope.curPerson = person;
-        $rootScope.showCard = true;
+        $timeout(function() {
+            $rootScope.curPerson = person;
+            $rootScope.showCard = true;
+        });
     };
 
     service.startPlacement = function(lat, long, radius, scene, callback) {
         var earth = scene.getMeshByName("earth");
 
-        $rootScope.showCard = false;
+        $timeout(function() {
+            $rootScope.showCard = false;
+        });
 
         $timeout(function() {
             rotateEarth(false);

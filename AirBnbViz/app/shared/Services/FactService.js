@@ -50,10 +50,14 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
         var posx = Math.random() * ($window.innerWidth - (width+100)) + 75;
         var posy = Math.random() * ($window.innerHeight - (height+100)) + 75;
 
-        $rootScope.factStyle = {'top': posy + 'px', 'left': posx + 'px',
-            'width': width+'px', 'height': height+'px'};
-        $rootScope.curFact = nextFact;
-        $rootScope.showFact = true;
+        $timeout(function() {
+            $rootScope.factStyle = {
+                'top': posy + 'px', 'left': posx + 'px',
+                'width': width + 'px', 'height': height + 'px'
+            };
+            $rootScope.curFact = nextFact;
+            $rootScope.showFact = true;
+        });
 
         $timeout(function() {
             service.completed();
@@ -62,7 +66,10 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
 
     service.completed = function() {
         service.next();
-        $rootScope.showFact = false;
+
+        $timeout(function() {
+            $rootScope.showFact = false;
+        });
 
         $timeout(function() {
             service.displayNext();
