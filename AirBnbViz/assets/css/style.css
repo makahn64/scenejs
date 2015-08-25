@@ -16,8 +16,8 @@ html, body {
 #card {
     z-index: 1;
     position: fixed;
-    width: 800px;
-    height: 400px;
+    width: 700px;
+    height: 500px;
     top:0;
     bottom:0;
     left:0;
@@ -26,7 +26,11 @@ html, body {
     background-color: #ffffff;
     border: 2px solid #fd5c63;
     border-radius: 25px;
-    padding: 15px 15px 40px 15px;
+    padding: 15px 20px 40px 550px;
+}
+
+#card p {
+    font-size: xx-large;
 }
 
 #fact {

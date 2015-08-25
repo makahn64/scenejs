@@ -24,7 +24,7 @@ var createScene = function () {
     // Define the material for the earth model
     var earthMat = new BABYLON.StandardMaterial("earthMat", scene);
     earthMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
-    earthMat.diffuseTexture = new BABYLON.Texture("textures/earthTop1.jpeg", scene);
+    earthMat.diffuseTexture = new BABYLON.Texture("textures/earthSimplePink.png", scene);
     earth.material = earthMat;
 
     return scene;

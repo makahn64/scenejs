@@ -47,7 +47,7 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
         var nextPerson = service.getCurrent();
 
         service.addPerson(nextPerson);
-        addText(nextPerson.name, nextPerson.loc);
+        service.addText(nextPerson);
 
         $timeout(function() {
             service.startPlacement(nextPerson.lat, nextPerson.long, EARTH_RADIUS/2, $window.scene, service.finishPlacement);
@@ -57,7 +57,7 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
     service.addPerson = function(person) {
         var imgPlane = BABYLON.Mesh.CreateDisc("imgPlane", 0.65, 50, scene);
         imgPlane.scaling.y = -1;
-        imgPlane.position = new BABYLON.Vector3(-4.6, 0.2, -4);
+        imgPlane.position = new BABYLON.Vector3(-4, 0, -4);
 
         var imgMat = new BABYLON.StandardMaterial("imgMat", scene);
         imgMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
@@ -66,9 +66,14 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
         imgPlane.material = imgMat;
     };
 
+    service.addText = function(person) {
+        $rootScope.curPerson = person;
+        $rootScope.showCard = true;
+    };
+
     service.startPlacement = function(lat, long, radius, scene, callback) {
         var earth = scene.getMeshByName("earth");
-        rmText();
+        $rootScope.showCard = false;
         rotateEarth(false);
 
         var relLat = Math.PI / 2 - lat * Math.PI / 180;

@@ -1,12 +1,5 @@
 var app = angular.module("app", []);
 
-app.factory("mainService", function($http) {
-    var service = {};
-    service.get = function(url) {
-        return $http.get(url);
-    };
-    return service;
-});
 
 app.controller("mainController",  function($scope, mainService) {
     $scope.getPeople = function() {
