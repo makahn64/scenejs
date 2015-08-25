@@ -91,10 +91,20 @@ app.factory("factService", function($rootScope, $log, $timeout, $http, $window) 
                 service.displayNext();
             }, 700);
         }
+
+        else {
+            $timeout(function() {
+                $rootScope.$broadcast("FACTS_STOPPED");
+            }, 1000);
+        }
     };
 
     service.stop = function() {
         _stop = true;
+    };
+
+    service.start = function() {
+        _stop = false;
     };
 
     return service;

@@ -1,16 +1,17 @@
 app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http) {
     var service = {};
 
-    var _index = 0;
+    service._index = 0;
     var _holdTime = 3000;
 
     service.people = [];
+    service.peoplePlanes = [];
 
     service.getPeople = function(url) {
         $http.get(url)
             .then(function (data) {
                 service.people = data.data;
-                _index = 0;
+                service._index = 0;
                 $rootScope.$broadcast("PEOPLE_LOADED");
             })
 
@@ -25,22 +26,22 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
     };
 
     service.getIndex = function() {
-        return _index;
+        return service._index;
     };
 
     service.getCurrent = function() {
-        return service.people[_index];
+        return service.people[service._index];
     };
 
     service.next = function() {
-        _index++;
+        service._index++;
 
-        if(_index == service.people.length) {
+        if(service._index == service.people.length) {
             service.people = [];
             $rootScope.$broadcast('NO_PEOPLE');
         }
 
-        return _index;
+        return service._index;
     };
 
     service.displayNext = function() {
@@ -64,6 +65,8 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
         imgMat.backFaceCulling = false;
         imgMat.diffuseTexture = new BABYLON.Texture("assets/img/" + person.imgUrl, scene);
         imgPlane.material = imgMat;
+
+        service.peoplePlanes.push(imgPlane);
     };
 
     service.addText = function(person) {
@@ -147,6 +150,15 @@ app.factory("peopleService", function($rootScope, $log, $timeout, $window, $http
         }
 
         $rootScope.$broadcast("PERSON_PLACED");
+    };
+
+    service.clearPeople = function() {
+
+        for(var i = 0; i < service.peoplePlanes.length; i++) {
+            service.peoplePlanes[i].dispose();
+        }
+
+        service.peoplePlanes = [];
     };
 
 

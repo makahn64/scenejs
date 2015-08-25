@@ -2,7 +2,7 @@
 <html ng-app="airViz">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>AirBnB Visual</title>
+    <title>Realistic AirBnB Visual</title>
 
     <!-- 3rd party frameworks -->
     <script src="assets/bower_components/angular/angular.min.js"></script>
@@ -29,22 +29,22 @@
 
 <body ng-controller="demoController">
 
-    <canvas id="renderCanvas"></canvas>
+<canvas id="renderCanvas"></canvas>
 
-    <div id="card" ng-show="showCard" class="fade">
-        <h1>{{curPerson.greeting + " " + curPerson.name + "!"}}</h1>
-        <p>{{curPerson.loc}}</p>
-    </div>
+<div id="card" ng-show="showCard" class="fade">
+    <h1>{{curPerson.greeting + " " + curPerson.name + "!"}}</h1>
+    <p>{{curPerson.loc}}</p>
+</div>
 
-    <div id="fact" ng-show="showFact" ng-style="factStyle" class="fade">
-        <h1>{{curFact.title}}</h1>
-        <p>{{curFact.content}}</p>
-    </div>
+<div id="fact" ng-show="showFact" ng-style="factStyle" class="fade">
+    <h1>{{curFact.title}}</h1>
+    <p>{{curFact.content}}</p>
+</div>
 
-    <!-- Scripts for the visual -->
-    <script src="app/components/EarthViz/earth.js"></script>
-    <script src="app/components/EarthViz/animations.js"></script>
-    <script src="app/components/EarthViz/draw.js"></script>
+<!-- Scripts for the visual -->
+<script src="app/components/EarthViz/realisticEarth.js"></script>
+<script src="app/components/EarthViz/animations.js"></script>
+<script src="app/components/EarthViz/draw.js"></script>
 
 </body>
 
