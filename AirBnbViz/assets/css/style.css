@@ -46,6 +46,10 @@ html, body {
 
 #fact p {
     font-size: x-large;
+    text-align: center;
+    margin-left: 40px;
+    margin-right: 40px;
+    line-height: 40px;
 }
 
 .fade {
