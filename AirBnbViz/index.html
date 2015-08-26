@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html ng-app="airViz">
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>AirBnB Visual</title>
+  <meta charset="UTF-8">
+  <title>AirBnB Visual</title>
 
-    <!-- 3rd party frameworks -->
-    <script src="assets/bower_components/angular/angular.min.js"></script>
-    <script src="assets/bower_components/babylonjs/babylon.2.1-beta.js"></script>
-    <script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+  <!-- 3rd party frameworks -->
+  <script src="assets/bower_components/angular/angular.min.js"></script>
+  <script src="assets/bower_components/babylonjs/babylon.2.1-beta.js"></script>
+  <script src="assets/bower_components/angular-animate/angular-animate.js"></script>
 
-    <!-- Main app module -->
-    <script src="app/airviz.module.js"></script>
+  <!-- Main app module -->
+  <script src="app/airviz.module.js"></script>
 
-    <!-- Controllers -->
-    <script src="app/shared/Controllers/DemoController.js"></script>
-    <script src="app/shared/Controllers/MainController.js"></script>
+  <!-- Controllers -->
+  <script src="app/shared/Controllers/DemoController.js"></script>
+  <script src="app/shared/Controllers/MainController.js"></script>
 
-    <!-- Services -->
-    <script src="app/shared/Services/PeopleService.js"></script>
-    <script src="app/shared/Services/FactService.js"></script>
+  <!-- Services -->
+  <script src="app/shared/Services/PeopleService.js"></script>
+  <script src="app/shared/Services/FactService.js"></script>
 
-    <!-- My stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+  <!-- My stylesheet -->
+  <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- Font -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <!-- Font -->
+  <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 </head>
 
 <body ng-controller="demoController">
 
-    <canvas id="renderCanvas"></canvas>
+<canvas id="renderCanvas"></canvas>
 
-    <div id="card" ng-show="showCard" class="fade">
-        <h1>{{curPerson.greeting + " " + curPerson.name + "!"}}</h1>
-        <p>{{curPerson.loc}}</p>
-    </div>
+<div id="card" ng-show="showCard" class="fade">
+  <h1>{{curPerson.greeting + " " + curPerson.name + "!"}}</h1>
 
-    <div id="fact" ng-show="showFact" ng-style="factStyle" class="fade">
-        <h1>{{curFact.title}}</h1>
-        <p>{{curFact.content}}</p>
-    </div>
+  <p>{{curPerson.loc}}</p>
+</div>
 
-    <!-- Scripts for the visual -->
-    <script src="app/components/EarthViz/earth.js"></script>
-    <script src="app/components/EarthViz/animations.js"></script>
-    <script src="app/components/EarthViz/draw.js"></script>
+<div id="fact" ng-show="showFact" ng-style="factStyle" class="fade">
+  <div class="fact-holder">
+    <h1>{{curFact.title}}</h1>
+    <p>{{curFact.content}}</p>
+  </div>
+
+</div>
+
+<!-- Scripts for the visual -->
+<script src="app/components/EarthViz/earth.js"></script>
+<script src="app/components/EarthViz/animations.js"></script>
+<script src="app/components/EarthViz/draw.js"></script>
 
 </body>
 
