@@ -95,24 +95,28 @@ function runScene(imgData, rootScope) {
         scene.getMaterialByName('groundMat').reflectionTexture.renderList.push(ticket);
     }
 
+    console.log("mainIdx: "+mainIdx);
+    console.log(tickets);
+
+
     var flowDirection = 0;
+
 
     function coverflow() {
         var animations = [];
 
-        if(mainIdx == numTickets - 1) {
+        if (mainIdx == numTickets - 1) {
             clearScene();
             rootScope.$broadcast('VIZ_DONE');
         }
 
-        if (flowDirection == 0) {
+        else if (flowDirection == 0) {
             animations.push(hold(PIC_HOLD_TIME, scene));
             flowDirection++;
             waitForAnimations(animations, coverflow);
         }
 
         else {
-
             animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
 
             if (mainIdx == 0) {

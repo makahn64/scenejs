@@ -8,7 +8,6 @@ app.factory('vizService',
 
         service.startViz = function (vizSrc, imgData) {
 
-
             if (!_loadedScripts[vizSrc]) {
 
                 $log.info("Loading  " + vizSrc);
