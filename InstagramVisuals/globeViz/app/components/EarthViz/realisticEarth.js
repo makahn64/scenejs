@@ -7,14 +7,12 @@ var createScene = function () {
     // Set scene and background color
     var scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color3(1, 1, 1);
-    scene.ambientColor = new BABYLON.Color3(1, 1, 1);
 
     // Create camera
     var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0, 0, new BABYLON.Vector3(-3, 0, 0), scene);
     mainCamera.setPosition(new BABYLON.Vector3(-3, 0, -7));
     scene.activeCamera = mainCamera;
 
-    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(-2, 0, 1), scene);
 
     // Create earth
     var earth = BABYLON.Mesh.CreateSphere("earth", 25, EARTH_RADIUS, scene);
@@ -23,15 +21,12 @@ var createScene = function () {
     earth.rotation.y = Math.PI;
 
     // Define the material for the earth model
-    var earthBase = new BABYLON.StandardMaterial("earthBase", scene);
-    earthBase.emissiveTexture = new BABYLON.Texture("assets/img/earthEmit.gif", scene);
-    earthBase.ambientTexture = new BABYLON.Texture("assets/img/earthDiffuse.jpg", scene);
-    earthBase.specularPower = 32;
-    earthBase.specularTexture = new BABYLON.Texture("assets/img/earthSpecular.png", scene);
-    earthBase.bumpTexture = new BABYLON.Texture("assets/img/earthNormal.jpg", scene);
+    var earthMat = new BABYLON.StandardMaterial("earthBase", scene);
+    earthMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    earthMat.diffuseTexture = new BABYLON.Texture("assets/img/earth.jpeg", scene);
 
 
-    earth.material = earthBase;
+    earth.material = earthMat;
 
     return scene;
 };
