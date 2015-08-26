@@ -95,10 +95,6 @@ function runScene(imgData, rootScope) {
         scene.getMaterialByName('groundMat').reflectionTexture.renderList.push(ticket);
     }
 
-    console.log("mainIdx: "+mainIdx);
-    console.log(tickets);
-
-
     var flowDirection = 0;
 
 
