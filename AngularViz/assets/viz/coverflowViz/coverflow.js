@@ -6,19 +6,10 @@ var scene = undefined;
 var engine = undefined;
 var tickets;
 var startFov;
-var running;
 
-function runScene(imgData) {
-    running = true;
+function runScene(imgData, rootScope) {
 
-    var allPhotos = imgData.photos;
     var origin = 'http://aso.appdelegates.net';
-    var ticketPhotos = [];
-    for (var p = 0; p < allPhotos.length; p++) {
-        if (allPhotos[p].url.indexOf('ticket') != -1) {
-            ticketPhotos.push(allPhotos[p].url);
-        }
-    }
 
     var canvas = document.getElementById("renderCanvas");
 
@@ -79,7 +70,7 @@ function runScene(imgData) {
     }
 
     var ticketHeight = 30;
-    var numTickets = ticketPhotos.length;
+    var numTickets = imgData.length;
     var mainIdx = 0;
     var curPos = new BABYLON.Vector3(0, 0, 0);
     var xInc = 35;
@@ -95,7 +86,7 @@ function runScene(imgData) {
 
         var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
         ticketMat.backFaceCulling = false;
-        ticketMat.emissiveTexture = new BABYLON.Texture(origin + ticketPhotos[i], scene);
+        ticketMat.emissiveTexture = new BABYLON.Texture(origin + imgData[i].url, scene);
         ticketMat.emissiveTexture.vOffset = 0.4;
         ticketMat.emissiveTexture.vScale = 0.35;
         ticket.material = ticketMat;
@@ -105,46 +96,57 @@ function runScene(imgData) {
     }
 
     var flowDirection = 0;
+
     function coverflow() {
-        if(running == false) {
-            return;
-        }
-
         var animations = [];
-        animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
 
-        if(mainIdx == 0) {
-            flowDirection = 1;
-        }
         if(mainIdx == numTickets - 1) {
-            flowDirection = -1;
+            clearScene();
+            rootScope.$broadcast('VIZ_DONE');
         }
 
-        for(var i = 0; i < tickets.length; i++) {
-            var newPos = new BABYLON.Vector3(tickets[i].position.x, tickets[i].position.y, tickets[i].position.z);
-            newPos.x -= xInc * flowDirection;
-
-            if(i < mainIdx) {
-                newPos.z += zInc * flowDirection;
-            }
-            if(i > mainIdx) {
-                newPos.z -= zInc * flowDirection;
-            }
-            if(i == mainIdx) {
-                newPos.z += zInc;
-            }
-            animations.push(moveTicketTimed(tickets[i], newPos, 2*TRANSITION_TIME, scene));
+        if (flowDirection == 0) {
+            animations.push(hold(PIC_HOLD_TIME, scene));
+            flowDirection++;
+            waitForAnimations(animations, coverflow);
         }
 
-        mainIdx = mainIdx + flowDirection;
-        waitForAnimations(animations, coverflow);
+        else {
+
+            animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
+
+            if (mainIdx == 0) {
+                flowDirection = 1;
+            }
+            if (mainIdx == numTickets - 1) {
+                flowDirection = -1;
+            }
+
+            for (var i = 0; i < tickets.length; i++) {
+                var newPos = new BABYLON.Vector3(tickets[i].position.x, tickets[i].position.y, tickets[i].position.z);
+                newPos.x -= xInc * flowDirection;
+
+                if (i < mainIdx) {
+                    newPos.z += zInc * flowDirection;
+                }
+                if (i > mainIdx) {
+                    newPos.z -= zInc * flowDirection;
+                }
+                if (i == mainIdx) {
+                    newPos.z += zInc;
+                }
+                animations.push(moveTicketTimed(tickets[i], newPos, 2 * TRANSITION_TIME, scene));
+            }
+
+            mainIdx = mainIdx + flowDirection;
+            waitForAnimations(animations, coverflow);
+        }
     }
 
     coverflow();
 }
 
 function clearScene() {
-    running = false;
     for(var i = 0; i < tickets.length; i++) {
         scene.getMeshByName('ticket'+i).dispose();
     }
@@ -217,4 +219,22 @@ function waitForAnimations(animations, callback) {
             callback();
         }
     }, 25);
+}
+
+function hold(time) {
+    var camera = scene.activeCamera;
+    var fps = 30;
+
+    var animation = new BABYLON.Animation("zoom", "fov", fps, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+
+    // Create array with animation keys
+    var keys = [];
+    keys.push({frame: 0, value: camera.fov});
+    keys.push({frame: fps * time, value: camera.fov});
+    animation.setKeys(keys);
+
+    camera.animations.push(animation);
+    scene.beginAnimation(camera, 0, fps * time);
+
+    return animation;
 }

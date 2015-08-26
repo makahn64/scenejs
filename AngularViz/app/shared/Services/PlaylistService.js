@@ -3,7 +3,7 @@
  */
 
 app.factory('playlistService',
-            function ($rootScope, $location, $log, $http) {
+            function ($rootScope, $location, $timeout, $log, $http) {
                 "use strict";
 
                 var service = {};
@@ -71,15 +71,15 @@ app.factory('playlistService',
                     switch (nextItem.type) {
 
                         case 'image':
-                            $location.path('image');
+                            $timeout(function(){$location.path('image')});
                             break;
 
                         case 'video':
-                            $location.path('video');
+                            $timeout(function(){$location.path('video')});
                             break;
 
                         case 'viz':
-                            $location.path('viz');
+                            $timeout(function(){$location.path('viz')});
                             break;
 
                         default:
