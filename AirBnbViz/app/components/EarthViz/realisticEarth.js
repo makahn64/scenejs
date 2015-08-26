@@ -13,6 +13,8 @@ var createScene = function () {
     mainCamera.setPosition(new BABYLON.Vector3(-3, 0, -7));
     scene.activeCamera = mainCamera;
 
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(-2, 0, 1), scene);
+
     // Create earth
     var earth = BABYLON.Mesh.CreateSphere("earth", 25, EARTH_RADIUS, scene);
     earth.position = new BABYLON.Vector3(0, 0, 0);
@@ -20,17 +22,25 @@ var createScene = function () {
     earth.rotation.y = Math.PI;
 
     // Define the material for the earth model
-    var earthMat = new BABYLON.StandardMaterial("earthMat", scene);
-    earthMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
-    earthMat.diffuseTexture = new BABYLON.Texture("assets/img/airBnbEarth.jpg", scene);
+    var earthBase = new BABYLON.StandardMaterial("earthBase", scene);
+    earthBase.emissiveTexture = new BABYLON.Texture("assets/img/earthEmit.gif", scene);
+    earthBase.diffuseTexture = new BABYLON.Texture("assets/img/earthDiffuse.jpg", scene);
+    earthBase.specularPower = 32;
+    earthBase.specularTexture = new BABYLON.Texture("assets/img/earthSpecular.png", scene);
+    earthBase.bumpTexture = new BABYLON.Texture("assets/img/earthNormal.jpg", scene);
 
-    earthMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
-    earthMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(0, 0, 0);
-    earthMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.White();
-    earthMat.emissiveFresnelParameters.bias = 0.8;
-    earthMat.emissiveFresnelParameters.power = 0.4;
+    var skybox = BABYLON.Mesh.CreateBox("skybox", 100.0, scene);
+    var skyboxMat = new BABYLON.StandardMaterial("skyboxMat", scene);
+    skyboxMat.backFaceCulling = false;
+    skyboxMat.diffuseColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMat.specularColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMat.reflectionTexture = new BABYLON.CubeTexture("assets/starbox/skybox", scene);
+    skyboxMat.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skybox.material = skyboxMat;
+    skybox.infiniteDistance = true;
 
-    earth.material = earthMat;
+
+    earth.material = earthBase;
 
     return scene;
 };
