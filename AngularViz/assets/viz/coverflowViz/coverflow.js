@@ -1,6 +1,6 @@
 var PIC_HOLD_TIME = 5;
 var TRANSITION_TIME = 0.75;
-var ZOOM_IN_FOV = 0.5;
+var ZOOM_IN_FOV = 0.6;
 
 var scene = undefined;
 var engine = undefined;
@@ -45,10 +45,13 @@ function runScene(imgData, rootScope) {
         ground.material = groundMat;
 
         var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
-            edge_blur: 1.0,
-            chromatic_aberration: 1.0,
+            edge_blur: 0,
+            chromatic_aberration: 0,
             distortion: 0,
-            dof_focus_distance: 50
+            dof_focus_distance: 45,
+            dof_aperture: 7,
+            dof_darken: 1,
+            grain_amount: 0.5,
         }, scene, 1.0, mainCamera);
 
         engine.runRenderLoop(function () {
@@ -73,12 +76,12 @@ function runScene(imgData, rootScope) {
     var numTickets = imgData.length;
     var mainIdx = 0;
     var curPos = new BABYLON.Vector3(0, 0, 0);
-    var xInc = 35;
-    var zInc = 30;
+    var xInc = 40;
+    var zInc = 40;
 
     for(var i = 0; i < numTickets; i++) {
         var ticket = BABYLON.Mesh.CreatePlane("ticket"+i, ticketHeight, scene);
-        ticket.scaling.x = 1.15;
+        ticket.scaling.x = 1.205764;
         ticket.position = new BABYLON.Vector3(curPos.x, curPos.y, curPos.z);
 
         curPos.x += xInc;
@@ -87,8 +90,8 @@ function runScene(imgData, rootScope) {
         var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
         ticketMat.backFaceCulling = false;
         ticketMat.emissiveTexture = new BABYLON.Texture(origin + imgData[i].url, scene);
-        ticketMat.emissiveTexture.vOffset = 0.4;
-        ticketMat.emissiveTexture.vScale = 0.35;
+        ticketMat.emissiveTexture.vOffset = -0.305;
+        ticketMat.emissiveTexture.vScale = 0.62;
         ticket.material = ticketMat;
 
         tickets.push(ticket);
@@ -101,7 +104,7 @@ function runScene(imgData, rootScope) {
     function coverflow() {
         var animations = [];
 
-        if (mainIdx == numTickets - 1) {
+        if (mainIdx == numTickets - 1 || numTickets == 0) {
             clearScene();
             rootScope.$broadcast('VIZ_DONE');
         }
