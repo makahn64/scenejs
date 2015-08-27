@@ -30,8 +30,9 @@ var createScene = function() {
         chromatic_aberration: 0,
         distortion: 0,
         dof_focus_distance: 45,
-        dof_aperture: 15,
-        dof_darken: 0.3,
+        dof_aperture: 7,
+        dof_darken: 0.5,
+        grain_amount: 0.8,
     }, scene, 1.0, mainCamera);
 
 
