@@ -1,0 +1,21 @@
+{
+  "name": "AirBnB App assets",
+  "version": "0.0.1",
+  "homepage": "https://github.com/makahn64/scenejs",
+  "authors": [
+    "atorres <torres.lyssa@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "babylonjs": "~2.0.0",
+    "angular-animate": "~1.4.4"
+  }
+}

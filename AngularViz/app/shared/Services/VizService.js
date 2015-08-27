@@ -6,9 +6,9 @@ app.factory('vizService',
 
         var _loadedScripts = {};
 
-        service.startViz =  function(vizSrc, imgData, duration, callback) {
+        service.startViz = function (vizSrc, imgData) {
 
-            if(!_loadedScripts[vizSrc]) {
+            if (!_loadedScripts[vizSrc]) {
 
                 $log.info("Loading  " + vizSrc);
                 var script = $document[0].createElement("script");
@@ -16,28 +16,16 @@ app.factory('vizService',
 
                 $document[0].head.appendChild(script);
 
-                script.onload = function() {
+                script.onload = function () {
                     _loadedScripts[vizSrc] = true;
-                    runScene(imgData);
-
-                    $timeout(function() {
-                        $log.info("clearing scene");
-                        clearScene();
-                        callback();
-                    }, duration);
-                };
+                    runScene(imgData, $rootScope);
+                }
             }
 
-
             else {
-                $log.info("Script "+vizSrc+" already loaded, running scene");
-                runScene(imgData);
 
-                $timeout(function() {
-                    $log.info("clearing scene");
-                    clearScene();
-                    callback();
-                }, duration);
+                $log.info("Script " + vizSrc + " already loaded, running scene");
+                runScene(imgData, $rootScope);
             }
         };
 

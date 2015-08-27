@@ -94,15 +94,14 @@ waitForAnimations(animations, cameraFun);
 function cameraFun() {
     animations = [];
 
-    // uncomment this block to have continuous camera movement (not very smooth yet, just testing out)
-    /*
     zoomAround(scene);
     moveCameraBetaAround(scene);
     moveCameraAlphaAround(scene);
-    */
 
+/*
     // this block just gives an example of a singular camera movement
     animations.push(moveCameraBeta(0.8, 2, scene));
     animations.push(moveCameraAlpha(-Math.PI / 1.5, 2.5, scene));
     animations.push(zoom(0.25, 3, scene));
+    */
 }

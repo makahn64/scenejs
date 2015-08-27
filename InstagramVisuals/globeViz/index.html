@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="igViz">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Instagram Globe Visual</title>
+
+    <script src="assets/bower_components/angular/angular.min.js"></script>
+    <script src="assets/bower_components/babylonjs/babylon.2.1-beta.js"></script>
+    <script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+
+    <script src="assets/js/ngActv8API.js"></script>
+    <script src="app/igviz.module.js"></script>
+    <script src="app/shared/Controllers/MainController.js"></script>
+    <script src="app/shared/Services/IgService.js"></script>
+
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+</head>
+
+<body ng-controller="mainController">
+
+<canvas id="renderCanvas"></canvas>
+
+<div id="card" ng-show="showCard" class="fade">
+    <h1>{{curName}}</h1>
+    <p>{{"@" + curUsername}}</p>
+</div>
+
+<!-- Scripts for the visual -->
+<script src="app/components/EarthViz/realisticEarth.js"></script>
+<script src="app/components/EarthViz/animations.js"></script>
+<script src="app/components/EarthViz/draw.js"></script>
+
+</body>
+
+</html>
