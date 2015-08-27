@@ -1,3 +1,5 @@
 [{"type":"image", "src":"assets/img/elephant.jpg", "duration":"3000"},
+{"type":"image", "src":"assets/img/clue.png", "duration":"3000"},
+{"type":"image", "src":"assets/img/elephant.jpg", "duration":"3000"},
   {"type":"video", "src":"assets/img/samplevideo.mp4"},
   {"type":"viz", "src":"assets/viz/coverflowViz/coverflow.js", "imgSrc":"http://aso.appdelegates.net/photos", "imgNum":"10"}]

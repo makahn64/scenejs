@@ -71,15 +71,15 @@ app.factory('playlistService',
                     switch (nextItem.type) {
 
                         case 'image':
-                            $timeout(function(){$location.path('image')});
+                            $timeout(function(){$location.path('image/'+_index)});
                             break;
 
                         case 'video':
-                            $timeout(function(){$location.path('video')});
+                            $timeout(function(){$location.path('video/'+_index)});
                             break;
 
                         case 'viz':
-                            $timeout(function(){$location.path('viz')});
+                            $timeout(function(){$location.path('viz/'+_index)});
                             break;
 
                         default:
