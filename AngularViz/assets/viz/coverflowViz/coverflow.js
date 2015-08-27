@@ -101,7 +101,7 @@ function runScene(imgData, rootScope) {
         }
 
         else if (flowDirection == 0) {
-            animations.push(hold(PIC_HOLD_TIME, scene));
+            animations.push(zoomAndHold(ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
             flowDirection++;
             waitForAnimations(animations, coverflow);
         }
@@ -215,20 +215,29 @@ function waitForAnimations(animations, callback) {
     }, 25);
 }
 
-function hold(time) {
+function zoomAndHold(inFov, zoomTime, holdTime, scene) {
     var camera = scene.activeCamera;
     var fps = 30;
+    var zoomedFrame = fps * zoomTime;
+    var endFrame = fps * holdTime;
+    var startFov = camera.fov;
 
-    var animation = new BABYLON.Animation("zoom", "fov", fps, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+    var animation = new BABYLON.Animation("zoomIn", "fov", fps, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
 
     // Create array with animation keys
     var keys = [];
-    keys.push({frame: 0, value: camera.fov});
-    keys.push({frame: fps * time, value: camera.fov});
+    keys.push({frame: 0, value: startFov});
+    keys.push({frame: zoomedFrame, value: inFov});
+    keys.push({frame: endFrame, value: inFov});
     animation.setKeys(keys);
 
+    // Attach easing function
+    var easingFunc = new BABYLON.SineEase();
+    easingFunc.setEasingMode(BABYLON.EasingFunction.EADINGMODE_EASEINOUT);
+    animation.setEasingFunction(easingFunc);
+
     camera.animations.push(animation);
-    scene.beginAnimation(camera, 0, fps * time);
+    scene.beginAnimation(camera, 0, endFrame);
 
     return animation;
 }
