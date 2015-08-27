@@ -25,6 +25,15 @@ var createScene = function() {
 
     ground.material = groundMat;
 
+    var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
+        edge_blur: 1.0,
+        chromatic_aberration: 0,
+        distortion: 0,
+        dof_focus_distance: 30,
+        dof_aperture: 2
+    }, scene, 1.0, mainCamera);
+
+
     return scene;
 };
 
@@ -44,14 +53,14 @@ var tickets = [];
 var mainIdx = 0;
 var curPos = new BABYLON.Vector3(0, 0, 0);
 
-var xInc = 55;
+var xInc = 40;
 var zInc = 30;
 
 // Place tickets
 for(var i = 0; i < numTickets; i++) {
     var ticketNum = i + 1;
     var ticket = BABYLON.Mesh.CreatePlane("ticket"+ticketNum, ticketHeight, scene);
-    ticket.scaling.x = 1.7934;
+    ticket.scaling.x = 1.205764;
     ticket.position = new BABYLON.Vector3(curPos.x, curPos.y, curPos.z);
 
     curPos.x += xInc;
@@ -61,8 +70,8 @@ for(var i = 0; i < numTickets; i++) {
     ticketMat.backFaceCulling = false;
     ticketMat.emissiveTexture = new BABYLON.Texture("img/ticket" + ticketNum + ".jpg", scene);
 
-    ticketMat.emissiveTexture.vOffset = -0.5;
-    ticketMat.emissiveTexture.vScale = 0.4;
+    ticketMat.emissiveTexture.vOffset = -0.305;
+    ticketMat.emissiveTexture.vScale = 0.62;
 
     ticket.material = ticketMat;
 
