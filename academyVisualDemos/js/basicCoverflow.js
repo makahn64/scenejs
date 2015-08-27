@@ -14,7 +14,7 @@ var createScene = function() {
     var ground = BABYLON.Mesh.CreateGround("ground", 150, 100, 1, scene);
     ground.position.y = -15;
     var groundMat = new BABYLON.StandardMaterial("groundMat", scene);
-    groundMat.ambientColor = new BABYLON.Color3(1, 1, 1);
+    groundMat.ambientColor = new BABYLON.Color3(0, 0, 0);
     groundMat.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true);
     groundMat.reflectionTexture.mirrorPlane = new BABYLON.Plane(0, -1, 0, -15);
     groundMat.reflectionTexture.renderList = [];
@@ -56,7 +56,7 @@ var mainIdx = 0;
 var curPos = new BABYLON.Vector3(0, 0, 0);
 
 var xInc = 40;
-var zInc = 30;
+var zInc = 40;
 
 // Place tickets
 for(var i = 0; i < numTickets; i++) {
