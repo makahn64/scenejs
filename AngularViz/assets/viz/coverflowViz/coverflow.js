@@ -1,6 +1,6 @@
 var PIC_HOLD_TIME = 5;
 var TRANSITION_TIME = 0.75;
-var ZOOM_IN_FOV = 0.6;
+var ZOOM_IN_FOV = 0.58;
 
 var scene = undefined;
 var engine = undefined;
@@ -44,15 +44,6 @@ function runScene(imgData, rootScope) {
 
         ground.material = groundMat;
 
-        var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
-            edge_blur: 0,
-            chromatic_aberration: 0,
-            distortion: 0,
-            dof_focus_distance: 45,
-            dof_aperture: 7,
-            dof_darken: 1,
-            grain_amount: 0.5,
-        }, scene, 1.0, mainCamera);
 
         engine.runRenderLoop(function () {
             scene.render();
@@ -77,7 +68,7 @@ function runScene(imgData, rootScope) {
     var mainIdx = 0;
     var curPos = new BABYLON.Vector3(0, 0, 0);
     var xInc = 40;
-    var zInc = 40;
+    var zInc = 70;
 
     for(var i = 0; i < numTickets; i++) {
         var ticket = BABYLON.Mesh.CreatePlane("ticket"+i, ticketHeight, scene);
