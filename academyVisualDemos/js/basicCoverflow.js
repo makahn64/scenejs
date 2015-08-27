@@ -31,8 +31,8 @@ var createScene = function() {
         distortion: 0,
         dof_focus_distance: 45,
         dof_aperture: 7,
-        dof_darken: 0.5,
-        grain_amount: 0.8,
+        dof_darken: 1,
+        grain_amount: 0.5,
     }, scene, 1.0, mainCamera);
 
 
