@@ -1,5 +1,5 @@
-[{"type":"image", "src":"assets/img/elephant.jpg", "duration":"3000"},
-{"type":"image", "src":"assets/img/clue.png", "duration":"3000"},
-{"type":"image", "src":"assets/img/elephant.jpg", "duration":"3000"},
-  {"type":"video", "src":"assets/img/samplevideo.mp4"},
+[{"type":"image", "src":"assets/img/LogoScreen.jpg", "duration":"5000"},
+  {"type":"image", "src":"assets/img/SweepstakesScreen.jpg", "duration":"5000"},
+  {"type":"image", "src":"assets/img/TextToWinScreen.jpg", "duration":"5000"},
+  {"type":"image", "src":"assets/img/SponsorshipScreen.jpg", "duration":"5000"},
   {"type":"viz", "src":"assets/viz/coverflowViz/coverflow.js", "imgSrc":"http://aso.appdelegates.net/photos", "imgNum":"10"}]
