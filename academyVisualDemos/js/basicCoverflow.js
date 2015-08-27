@@ -26,11 +26,12 @@ var createScene = function() {
     ground.material = groundMat;
 
     var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
-        edge_blur: 1.0,
+        edge_blur: 0,
         chromatic_aberration: 0,
         distortion: 0,
-        dof_focus_distance: 30,
-        dof_aperture: 2
+        dof_focus_distance: 45,
+        dof_aperture: 15,
+        dof_darken: 0.3,
     }, scene, 1.0, mainCamera);
 
 
