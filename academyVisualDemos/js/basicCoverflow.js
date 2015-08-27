@@ -20,11 +20,12 @@ var createScene = function() {
     groundMat.reflectionTexture.renderList = [];
 
     groundMat.reflectionFresnelParameters = new BABYLON.FresnelParameters();
-    groundMat.reflectionFresnelParameters.power = 0.1;
-    groundMat.reflectionFresnelParameters.bias = 0.2;
+    groundMat.reflectionFresnelParameters.power = 0.2;
+    groundMat.reflectionFresnelParameters.bias = 0.4;
 
     ground.material = groundMat;
 
+    /*
     var lensEffect = new BABYLON.LensRenderingPipeline('lens', {
         edge_blur: 0,
         chromatic_aberration: 0,
@@ -34,7 +35,7 @@ var createScene = function() {
         dof_darken: 1,
         grain_amount: 0.5,
     }, scene, 1.0, mainCamera);
-
+    */
 
     return scene;
 };
@@ -56,7 +57,7 @@ var mainIdx = 0;
 var curPos = new BABYLON.Vector3(0, 0, 0);
 
 var xInc = 40;
-var zInc = 30;
+var zInc = 70;
 
 // Place tickets
 for(var i = 0; i < numTickets; i++) {
@@ -88,7 +89,7 @@ function coverflow() {
     var animations = [];
 
     // third param in zoomOutIn is hold time for image
-    animations.push(zoomOutIn(startFov, 0.6, 0.75, 3, scene));
+    animations.push(zoomOutIn(startFov, 0.58, 0.75, 3, scene));
     if(mainIdx == 0) {
         flowDirection = 1;
     }
