@@ -39,19 +39,19 @@ window.addEventListener("resize", function () {
 });
 
 var ticketHeight = 30;
-var numTickets = 9;
+var numTickets = 5;
 var tickets = [];
 var mainIdx = 0;
 var curPos = new BABYLON.Vector3(0, 0, 0);
 
-var xInc = 35;
+var xInc = 55;
 var zInc = 30;
 
 // Place tickets
 for(var i = 0; i < numTickets; i++) {
     var ticketNum = i + 1;
     var ticket = BABYLON.Mesh.CreatePlane("ticket"+ticketNum, ticketHeight, scene);
-    ticket.scaling.x = 1.15;
+    ticket.scaling.x = 1.7934;
     ticket.position = new BABYLON.Vector3(curPos.x, curPos.y, curPos.z);
 
     curPos.x += xInc;
@@ -59,24 +59,16 @@ for(var i = 0; i < numTickets; i++) {
 
     var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
     ticketMat.backFaceCulling = false;
-    ticketMat.emissiveTexture = new BABYLON.Texture("img/t00" + ticketNum + ".jpg", scene);
+    ticketMat.emissiveTexture = new BABYLON.Texture("img/ticket" + ticketNum + ".jpg", scene);
+
+    ticketMat.emissiveTexture.vOffset = -0.5;
+    ticketMat.emissiveTexture.vScale = 0.4;
+
     ticket.material = ticketMat;
 
     tickets.push(ticket);
     scene.getMaterialByName('groundMat').reflectionTexture.renderList.push(ticket);
 }
-
-// example of cropping with uv scaling/offsets
-/*var ticket = BABYLON.Mesh.CreatePlane("ticket"+ticketNum, ticketHeight, scene);
- ticket.scaling.x = 0.75;
- ticket.position = new BABYLON.Vector3(-5, -ticketHeight/2 -1, 0);
-
- var ticketMat = new BABYLON.StandardMaterial("ticketMat", scene);
- ticketMat.backFaceCulling = false;
- ticketMat.diffuseTexture = new BABYLON.Texture("img/t001.jpg", scene);
- ticketMat.diffuseTexture.vOffset = 0.45;
- ticketMat.diffuseTexture.vScale = 0.35;
- ticket.material = ticketMat;*/
 
 var flowDirection = 0;
 var startFov = scene.activeCamera.fov;
@@ -85,7 +77,7 @@ function coverflow() {
     var animations = [];
 
     // third param in zoomOutIn is hold time for image
-    animations.push(zoomOutIn(startFov, 0.35, 0.75, 3, scene));
+    animations.push(zoomOutIn(startFov, 0.6, 0.75, 3, scene));
     if(mainIdx == 0) {
         flowDirection = 1;
     }
