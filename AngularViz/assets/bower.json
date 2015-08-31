@@ -21,6 +21,8 @@
     "lodash": "*",
     "ngSanitize": "*",
     "angular-animate": "*",
-    "angular-sanitize": "*"
+    "angular-sanitize": "*",
+    "babylonjs": "~2.0.0",
+    "angular-ui-event": "~1.0.0"
   }
 }

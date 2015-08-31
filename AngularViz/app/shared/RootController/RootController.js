@@ -7,12 +7,13 @@
  */
 
 
-app.controller("rootController", function ($scope, $log, playlistService, $location, $timeout) {
+app.controller("rootController", function ($scope, $log, playlistService, $location, $timeout, userDefaults) {
 
         $log.debug("Loading rootController");
 
         //userDefaults.setStringForKey('hello', 'Ahoy matey!');
-        //$log.debug("RC: "+userDefaults.getStringForKey('hello'));
+        $log.debug("RC: "+userDefaults.getStringForKey('test', "bahhh!"));
+
 
 
         $scope.$on("PLAYLIST_LOADED", function () {

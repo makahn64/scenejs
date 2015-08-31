@@ -19,10 +19,23 @@ app.controller("vizViewController",
             .then(function(data) {
 
                 var imgData = [];
-                for (var p = 0; p < data.data.photos.length; p++) {
-                    if (data.data.photos[p].url.indexOf('ticket') != -1) {
-                       imgData.push(data.data.photos[p]);
+
+                var photos = data.data.photos;
+
+                photos.forEach( function(photo){
+
+                    var isTicket = ( photo.url.indexOf('ticket') !== -1 );
+                    var isFlagged= photo.flagged;
+
+                    if (isTicket && !isFlagged ){
+                        imgData.push(photo);
                     }
+
+                });
+
+                //Hack to get atleast 2 in the pipe
+                if (imgData.length==1){
+                    imgData.push(imgData[0]);
                 }
 
                 imgData = $filter('orderBy')(imgData, "-createdAt");

@@ -1,5 +1,5 @@
 app.factory('vizService',
-    function ($rootScope, $log, $timeout, $document) {
+    function ($rootScope, $log, $timeout, $document, userDefaults) {
         "use strict";
 
         var service = {};
@@ -18,14 +18,14 @@ app.factory('vizService',
 
                 script.onload = function () {
                     _loadedScripts[vizSrc] = true;
-                    runScene(imgData, $rootScope);
+                    runScene(imgData, $rootScope, userDefaults);
                 }
             }
 
             else {
 
                 $log.info("Script " + vizSrc + " already loaded, running scene");
-                runScene(imgData, $rootScope);
+                runScene(imgData, $rootScope, userDefaults);
             }
         };
 

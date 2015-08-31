@@ -1,17 +1,30 @@
 var PIC_HOLD_TIME = 5;
 var TRANSITION_TIME = 0.75;
-var ZOOM_IN_FOV = 0.58;
+var START_FOV = 0.8;
+var ZOOM_IN_FOV = START_FOV - 0.22;
 
 var scene = undefined;
 var engine = undefined;
 var tickets;
-var startFov;
 
-function runScene(imgData, rootScope) {
+function runScene(imgData, rootScope, userDefaults) {
 
-    var origin = 'http://aso.appdelegates.net';
+    var origin = '';
 
     var canvas = document.getElementById("renderCanvas");
+
+    var zoom = userDefaults.getStringForKey("zoomAmount", "");
+
+    if(zoom) {
+        START_FOV = parseFloat(zoom);
+        ZOOM_IN_FOV = START_FOV - 0.22;
+    }
+
+    var holdTime = userDefaults.getStringForKey("holdTime", "");
+
+    if(holdTime) {
+        PIC_HOLD_TIME = parseFloat(holdTime);
+    }
 
     if(scene == undefined) {
         // Fixes issue with BabylonJS giving error "prepare is not a function".
@@ -27,8 +40,7 @@ function runScene(imgData, rootScope) {
 
         var mainCamera = new BABYLON.ArcRotateCamera("mainCamera", -Math.PI/2, Math.PI/2, 50, BABYLON.Vector3.Zero(), scene);
         scene.activeCamera = mainCamera;
-        startFov = mainCamera.fov;
-        scene.activeCamera.attachControl(canvas);
+        mainCamera.fov = START_FOV;
 
         var ground = BABYLON.Mesh.CreateGround("ground", 150, 100, 1, scene);
         ground.position.y = -15;
@@ -107,7 +119,7 @@ function runScene(imgData, rootScope) {
         }
 
         else {
-            animations.push(zoomOutIn(startFov, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
+            animations.push(zoomOutIn(START_FOV, ZOOM_IN_FOV, TRANSITION_TIME, PIC_HOLD_TIME, scene));
 
             if (mainIdx == 0) {
                 flowDirection = 1;
