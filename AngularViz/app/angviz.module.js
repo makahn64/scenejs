@@ -15,7 +15,7 @@ var app = angular.module('angVizApp', [
 
 
 
-app.config(function () {
+app.config(function($httpProvider) {
 
     console.info("app.CONFIGing");
 
@@ -32,7 +32,7 @@ app.run(['$rootScope', '$location', '$log', 'playlistService',
 
         });
 
-        playlistService.init();
+        playlistService.init("https://commtix.appdelegates.net/ct/");
 
     }
 ]);
